@@ -8,10 +8,16 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button firstRequest;
-    Button secondRequest;
-    Button thirdRequest;
+    Button firstButton;
+    Button secondButton;
+    Button thirdButton;
+    Button fourthButton;
     Button settings;
+
+    String firstRequest;
+    String secondRequest;
+    String thirdRequest;
+    String fourthRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,26 +29,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setVariables() {
-        firstRequest = (Button) findViewById(R.id.firstRequest);
-        secondRequest = (Button) findViewById(R.id.secondRequest);
-        thirdRequest = (Button) findViewById(R.id.thirdRequest);
+        firstButton = (Button) findViewById(R.id.firstRequest);
+        secondButton = (Button) findViewById(R.id.secondRequest);
+        thirdButton = (Button) findViewById(R.id.thirdRequest);
+        fourthButton = (Button) findViewById(R.id.fourthRequest);
         settings = (Button) findViewById(R.id.settings);
     }
 
     public void setClickListener() {
-        firstRequest.setOnClickListener(new View.OnClickListener() {
+        firstButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
-        secondRequest.setOnClickListener(new View.OnClickListener() {
+        secondButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
-        thirdRequest.setOnClickListener(new View.OnClickListener() {
+        thirdButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        fourthButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -55,5 +68,41 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(intent);
             }
         });
+    }
+
+    public String getFirstRequest() {
+        return this.firstRequest;
+    }
+
+    public void setFirstRequest(String request) {
+        this.firstRequest = request;
+    }
+
+    public String getSecondRequest() {
+        return this.secondRequest;
+    }
+
+    public void setSecondRequest(String request) {
+        this.secondRequest = request;
+    }
+
+    public String getThirdRequest() {
+        return this.thirdRequest;
+    }
+
+    public void setThirdRequest(String request) {
+        this.thirdRequest = request;
+    }
+
+    public String getFourthRequest() {
+        return this.fourthRequest;
+    }
+
+    public void setFourthRequest(String request) {
+        this.fourthRequest = request;
+    }
+
+    public void setButtonName(Button button, String buttonName) {
+        button.setText(buttonName);
     }
 }
