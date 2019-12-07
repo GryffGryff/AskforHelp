@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.serviceproject.gryffgryff.askforhelp.ChooseContactsActivity">
+
+    <Button
+        android:id="@+id/firstContactGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/secondContactGroup"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="25dp"
+        android:text="family"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:background="#1291ff" />
+
+    <Button
+        android:id="@+id/secondContactGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/thirdContactGroup"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="25dp"
+        android:text="work"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:background="#12d0ff"/>
+
+    <Button
+        android:id="@+id/thirdContactGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fourthContactGroup"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="25dp"
+        android:text="friends"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:background="#12ffe8" />
+
+    <Button
+        android:id="@+id/fourthContactGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/backButtonOne"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="teachers"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:background="#12ff89"/>
+
+    <Button
+        android:id="@+id/backButtonOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:background="@drawable/rounded_button"
+        android:text="Back"/>
+
+
+</RelativeLayout>

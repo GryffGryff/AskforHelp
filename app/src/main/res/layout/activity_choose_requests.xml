@@ -5,56 +5,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.serviceproject.gryffgryff.askforhelp.MainActivity">
+    tools:context="com.serviceproject.gryffgryff.askforhelp.ChooseRequestsActivity">
 
     <Button
         android:id="@+id/firstRequest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/secondRequest"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="25dp"
         android:text="I need water"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:background="#90ffde"/>
+        android:background="#1291ff" />
     <Button
         android:id="@+id/secondRequest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/thirdRequest"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="25dp"
         android:text="I need food"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:background="#90fffc"/>
+        android:background="#12d0ff"/>
     <Button
         android:id="@+id/thirdRequest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/fourthRequest"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="15dp"
-        android:text="I need water and food"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="25dp"
+        android:text="I fell and can't get up"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:background="#90e2ff"/>
+        android:background="#12ffe8"/>
     <Button
         android:id="@+id/fourthRequest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/settings"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="40dp"
-        android:text="I fell and can't get up"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="test"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:background="#90cfff"/>
+        android:background="#12ff89"/>
     <Button
         android:id="@+id/settings"
         android:layout_width="wrap_content"
@@ -62,7 +62,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="30dp"
         android:gravity="center"
         android:background="@drawable/rounded_button"
         android:text="Settings"/>
