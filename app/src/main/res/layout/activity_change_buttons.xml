@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    tools:context=".ChangeButtonsActivity">
+
+    <TextView
+        android:id="@+id/firstButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/secondButton"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="100dp"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        />
+
+
+    <Button
+        android:id="@+id/deleteFirstButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/firstButton"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/secondButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/thirdButton"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="100dp"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/deleteSecondButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/secondButton"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/thirdButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="100dp"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
+
+
+    <Button
+        android:id="@+id/deleteThirdButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/thirdButton"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/fourthButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/thirdButton"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="100dp"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/deleteFourthButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/fourthButton"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/setNewButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/saveNewButton"
+        android:layout_marginBottom="10dp"
+        android:gravity="end"
+        android:textSize="25sp"
+        android:hint="Enter new button name"/>
+
+    <Button
+        android:id="@+id/saveNewButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:text="save new button"
+        android:textSize="25sp"/>
+
+</RelativeLayout>

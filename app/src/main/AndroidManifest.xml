@@ -19,10 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ChooseContactsActivity" />
-        <activity
-            android:name=".SettingsActivty"
-            android:label="@string/title_activity_settings_activty"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ChangeButtonsActivity"></activity>
     </application>
 
 </manifest>

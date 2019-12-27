@@ -42,10 +42,10 @@ public class ChooseContactsActivity extends AppCompatActivity {
     }
 
     public void addNumbersToBundle() {
-        whoToText.putString("first_group", "4128777232, 4128777338");
-        whoToText.putString("second_group", "4128779326");
-        whoToText.putString("third_group", "");
-        whoToText.putString("fourth_group", "");
+        whoToText.putStringArray("first_group", new String[] {"4128777232", "4128777338"});
+        whoToText.putStringArray("second_group", new String[] {"4128779326"});
+        whoToText.putStringArray("third_group", new String[] {""});
+        whoToText.putStringArray("fourth_group", new String[] {""});
     }
 
     public void setClickListener() {
@@ -106,16 +106,23 @@ public class ChooseContactsActivity extends AppCompatActivity {
     }
 
     public void textPerson(String text) {
-
-        String address = (whoToText.getString(text));
+        //error handling?
+        String address;
         String textBody = (whatToText.getString(whatToText.getString("last_button_pressed")));
         String scAddress = null;
         PendingIntent sentIntent = null;
         PendingIntent deliveryIntent = null;
 
-        SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(address, scAddress, textBody, sentIntent, deliveryIntent);
+        String[] numbers = whoToText.getStringArray(text);
+        int lengthOfArray = numbers.length;
 
-        Toast.makeText(ChooseContactsActivity.this, "Text sent", Toast.LENGTH_LONG).show();
+        for (int i = 0; i<lengthOfArray; i++) {
+            address = numbers[i];
+
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(address, scAddress, textBody, sentIntent, deliveryIntent);
+
+            Toast.makeText(ChooseContactsActivity.this, "Text sent", Toast.LENGTH_LONG).show();
+        }
     }
 }
