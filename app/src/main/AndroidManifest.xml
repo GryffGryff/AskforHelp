@@ -19,7 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ChooseContactsActivity" />
-        <activity android:name=".ChangeButtonsActivity"></activity>
+        <activity android:name=".ChangeButtonsActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".EditRecievers"></activity>
     </application>
 
 </manifest>

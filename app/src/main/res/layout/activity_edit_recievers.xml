@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    tools:context="com.serviceproject.gryffgryff.askforhelp.EditRecievers">
+
+    <Button
+        android:id="@+id/firstGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/secondGroup"
+        android:layout_marginRight="120dp"
+        android:layout_marginEnd="120dp"/>
+
+
+    <Button
+        android:id="@+id/deleteFirstGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/firstGroup"
+        android:textSize="25sp"/>
+
+    <Button
+        android:id="@+id/secondGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/thirdGroup"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="120dp"
+        android:layout_marginEnd="120dp"/>
+
+    <Button
+        android:id="@+id/deleteSecondGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/secondGroup"
+        android:textSize="25sp"/>
+
+    <Button
+        android:id="@+id/thirdGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="120dp"
+        android:layout_marginEnd="120dp"/>
+
+    <Button
+        android:id="@+id/deleteThirdGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/thirdGroup"
+        android:textSize="25sp"/>
+
+    <Button
+        android:id="@+id/fourthGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/thirdGroup"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="120dp"
+        android:layout_marginEnd="120dp"/>
+
+    <Button
+        android:id="@+id/deleteFourthGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/fourthGroup"
+        android:textSize="25sp"/>
+
+    <EditText
+        android:id="@+id/addNewContactGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/saveNewGroup"
+        android:layout_marginBottom="15dp"/>
+
+    <Button
+        android:id="@+id/saveNewGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="save new group"/>
+
+
+</RelativeLayout>

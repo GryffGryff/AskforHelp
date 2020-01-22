@@ -76,6 +76,8 @@ public class ChooseRequestsActivity extends AppCompatActivity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(ChooseRequestsActivity.this, SettingsActivity.class);
+                ChooseRequestsActivity.this.startActivity(intent);
             }
         });
     }

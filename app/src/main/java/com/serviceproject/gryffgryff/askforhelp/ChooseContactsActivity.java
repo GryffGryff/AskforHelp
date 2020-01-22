@@ -122,7 +122,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(address, scAddress, textBody, sentIntent, deliveryIntent);
 
-            Toast.makeText(ChooseContactsActivity.this, "Text sent", Toast.LENGTH_LONG).show();
+            Toast.makeText(ChooseContactsActivity.this, whatToText.getString(whatToText.getString("last_button_pressed")) + " was sent to ", Toast.LENGTH_LONG).show();
         }
     }
 }

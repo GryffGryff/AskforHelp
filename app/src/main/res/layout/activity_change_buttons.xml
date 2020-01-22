@@ -15,8 +15,7 @@
         android:layout_marginRight="100dp"
         android:gravity="center"
         android:textSize="25sp"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
 
 
     <Button
@@ -53,7 +52,8 @@
         android:id="@+id/thirdButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_above="@+id/fourthButton"
+        android:layout_marginBottom="20dp"
         android:layout_marginRight="100dp"
         android:gravity="center"
         android:textSize="25sp"
@@ -73,8 +73,7 @@
         android:id="@+id/fourthButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/thirdButton"
-        android:layout_marginTop="20dp"
+        android:layout_centerVertical="true"
         android:layout_marginRight="100dp"
         android:gravity="center"
         android:textSize="25sp"
@@ -103,9 +102,21 @@
         android:id="@+id/saveNewButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/backButtonSettings"
+        android:layout_marginBottom="20dp"
         android:text="save new button"
         android:textSize="25sp"/>
+
+    <Button
+        android:id="@+id/backButtonSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:background="@drawable/rounded_button"
+        android:text="Back"/>
 
 </RelativeLayout>
