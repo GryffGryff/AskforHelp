@@ -18,7 +18,8 @@ public class ChooseRequestsActivity extends AppCompatActivity {
     Button fourthButton;
     Button settings;
 
-    Bundle bundle = new Bundle();
+    Bundle requestsText = new Bundle();
+    Bundle buttonNames;
 
     Integer requestCode = 3;
 
@@ -27,7 +28,8 @@ public class ChooseRequestsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_requests);
         setVariables();
-        addNamesToBundle();
+        setNewButtonNames();
+        addRequestsToBundle();
         getPermission();
         setClickListener();
     }
@@ -40,12 +42,19 @@ public class ChooseRequestsActivity extends AppCompatActivity {
         settings = (Button) findViewById(R.id.settings);
     }
 
-    public void addNamesToBundle() {
-        bundle.putString("first_text", getButtonName(firstButton));
-        bundle.putString("second_text", getButtonName(secondButton));
-        bundle.putString("third_text", getButtonName(thirdButton));
-        bundle.putString("fourth_text", getButtonName(fourthButton));
-        bundle.putString("last_button_pressed", "none");
+    public void setNewButtonNames() {
+        firstButton.setText("I need food");
+        secondButton.setText("I need water");
+        thirdButton.setText("I fell and can't get up");
+        fourthButton.setText("Test");
+    }
+
+    public void addRequestsToBundle() {
+        requestsText.putString("first_text", getButtonName(firstButton));
+        requestsText.putString("second_text", getButtonName(secondButton));
+        requestsText.putString("third_text", getButtonName(thirdButton));
+        requestsText.putString("fourth_text", getButtonName(fourthButton));
+        requestsText.putString("last_button_pressed", "none");
     }
 
     public void setClickListener() {
@@ -77,6 +86,7 @@ public class ChooseRequestsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ChooseRequestsActivity.this, SettingsActivity.class);
+                intent.putExtras(requestsText);
                 ChooseRequestsActivity.this.startActivity(intent);
             }
         });
@@ -88,9 +98,9 @@ public class ChooseRequestsActivity extends AppCompatActivity {
 
     public void startIntent(String text) {
         Intent intent = new Intent(ChooseRequestsActivity.this, ChooseContactsActivity.class);
-        bundle.remove("last_button_pressed");
-        bundle.putString("last_button_pressed", text);
-        intent.putExtras(bundle);
+        requestsText.remove("last_button_pressed");
+        requestsText.putString("last_button_pressed", text);
+        intent.putExtras(requestsText);
         ChooseRequestsActivity.this.startActivity(intent);
     }
 

@@ -1,5 +1,6 @@
 package com.serviceproject.gryffgryff.askforhelp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,6 +22,10 @@ public class ChangeButtonsActivity extends AppCompatActivity {
     Button deleteFourthButton;
     Button saveNewButton;
 
+    Button homeButton;
+
+    Bundle buttonNames;
+
     EditText setNewButton;
 
 
@@ -31,6 +36,7 @@ public class ChangeButtonsActivity extends AppCompatActivity {
 
         setVariables();
         addButtonsToArray();
+        setButtonNames();
         setClickListener();
     }
 
@@ -54,6 +60,17 @@ public class ChangeButtonsActivity extends AppCompatActivity {
 
         saveNewButton = (Button) findViewById(R.id.saveNewButton);
         setNewButton = (EditText) findViewById(R.id.setNewButton);
+
+        homeButton = (Button) findViewById(R.id.homeButtonSettings);
+
+        buttonNames = getIntent().getExtras();
+    }
+
+    public void setButtonNames() {
+        firstButton.setText(buttonNames.getString("first_text"));
+        secondButton.setText(buttonNames.getString("second_text"));
+        thirdButton.setText(buttonNames.getString("third_text"));
+        fourthButton.setText(buttonNames.getString("fourth_text"));
     }
 
     public void setClickListener() {
@@ -91,12 +108,21 @@ public class ChangeButtonsActivity extends AppCompatActivity {
                 addNewButton();
             }
         });
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChangeButtonsActivity.this, ChooseRequestsActivity.class);
+                setNewButtonNames();
+                intent.putExtras(buttonNames);
+                ChangeButtonsActivity.this.startActivity(intent);
+            }
+        });
     }
 
     public void bumpUpNames(int numButtons) {
-        //doesn't work
         while (numButtons < 3) {
-            buttons[numButtons] = buttons[numButtons+1];
+            buttons[numButtons].setText(buttons[numButtons+1].getText().toString());
             numButtons++;
         }
         buttons[3].setText("");
@@ -119,5 +145,11 @@ public class ChangeButtonsActivity extends AppCompatActivity {
         setNewButton.setText("");
     }
 
-
+    public void setNewButtonNames() {
+        buttonNames.clear();
+        buttonNames.putString("first_text", firstButton.getText().toString());
+        buttonNames.putString("second_text", secondButton.getText().toString());
+        buttonNames.putString("third_text", thirdButton.getText().toString());
+        buttonNames.putString("fourth_text", fourthButton.getText().toString());
+    }
 }

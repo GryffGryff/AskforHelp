@@ -13,7 +13,6 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="25dp"
-        android:text="I need water"
         android:textSize="25sp"
         android:textStyle="bold"
         android:background="#1291ff"/>
@@ -25,7 +24,6 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="25dp"
-        android:text="I need food"
         android:textSize="25sp"
         android:textStyle="bold"
         android:background="#12d0ff"/>
@@ -37,7 +35,6 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="25dp"
-        android:text="I fell and can't get up"
         android:textSize="25sp"
         android:textStyle="bold"
         android:background="#12ffe8"/>
@@ -49,7 +46,6 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
-        android:text="test"
         android:textSize="25sp"
         android:textStyle="bold"
         android:background="#12ff89"/>

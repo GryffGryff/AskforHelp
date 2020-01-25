@@ -10,6 +10,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     Button changeButton;
     Button editReceivers;
+    Bundle buttonNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class SettingsActivity extends AppCompatActivity {
     public void setVariables() {
         changeButton = (Button) findViewById(R.id.changeButtons);
         editReceivers = (Button) findViewById(R.id.editReceivers);
+        buttonNames = getIntent().getExtras();
     }
 
     public void setClickListener() {
@@ -30,6 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SettingsActivity.this, ChangeButtonsActivity.class);
+                intent.putExtras(buttonNames);
                 SettingsActivity.this.startActivity(intent);
             }
         });
