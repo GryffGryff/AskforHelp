@@ -1,12 +1,15 @@
 package com.serviceproject.gryffgryff.askforhelp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ChangeButtonsActivity extends AppCompatActivity {
 
@@ -24,9 +27,11 @@ public class ChangeButtonsActivity extends AppCompatActivity {
 
     Button homeButton;
 
-    Bundle buttonNames;
 
     EditText setNewButton;
+
+    SharedPreferences sharedPreferences;
+    Context context;
 
 
     @Override
@@ -63,14 +68,22 @@ public class ChangeButtonsActivity extends AppCompatActivity {
 
         homeButton = (Button) findViewById(R.id.homeButtonSettings);
 
-        buttonNames = getIntent().getExtras();
+        context = ChangeButtonsActivity.this;
     }
 
     public void setButtonNames() {
-        firstButton.setText(buttonNames.getString("first_text"));
-        secondButton.setText(buttonNames.getString("second_text"));
-        thirdButton.setText(buttonNames.getString("third_text"));
-        fourthButton.setText(buttonNames.getString("fourth_text"));
+        try {
+            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.BUTTON_NAME_PREFERENCES", Context.MODE_PRIVATE);
+            firstButton.setText(sharedPreferences.getString("first_text", ""));
+            secondButton.setText(sharedPreferences.getString("second_text", ""));
+            thirdButton.setText(sharedPreferences.getString("third_text", ""));
+            fourthButton.setText(sharedPreferences.getString("fourth_text", ""));
+        } catch (Exception e) {
+            firstButton.setText("");
+            secondButton.setText("");
+            thirdButton.setText("");
+            fourthButton.setText("");
+        }
     }
 
     public void setClickListener() {
@@ -114,7 +127,6 @@ public class ChangeButtonsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ChangeButtonsActivity.this, ChooseRequestsActivity.class);
                 setNewButtonNames();
-                intent.putExtras(buttonNames);
                 ChangeButtonsActivity.this.startActivity(intent);
             }
         });
@@ -146,10 +158,16 @@ public class ChangeButtonsActivity extends AppCompatActivity {
     }
 
     public void setNewButtonNames() {
-        buttonNames.clear();
-        buttonNames.putString("first_text", firstButton.getText().toString());
-        buttonNames.putString("second_text", secondButton.getText().toString());
-        buttonNames.putString("third_text", thirdButton.getText().toString());
-        buttonNames.putString("fourth_text", fourthButton.getText().toString());
+        try {
+            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.BUTTON_NAME_PREFERENCES", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("first_text", firstButton.getText().toString());
+            editor.putString("second_text", secondButton.getText().toString());
+            editor.putString("third_text", thirdButton.getText().toString());
+            editor.putString("fourth_text", fourthButton.getText().toString());
+            editor.apply();
+        } catch (Exception e) {
+            Toast.makeText(context, "editing shared preferences file failed", Toast.LENGTH_LONG);
+        }
     }
 }
