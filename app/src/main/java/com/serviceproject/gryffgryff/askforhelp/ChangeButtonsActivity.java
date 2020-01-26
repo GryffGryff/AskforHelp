@@ -66,14 +66,14 @@ public class ChangeButtonsActivity extends AppCompatActivity {
         saveNewButton = (Button) findViewById(R.id.saveNewButton);
         setNewButton = (EditText) findViewById(R.id.setNewButton);
 
-        homeButton = (Button) findViewById(R.id.homeButtonSettings);
+        homeButton = (Button) findViewById(R.id.homeButtonRequests);
 
         context = ChangeButtonsActivity.this;
     }
 
     public void setButtonNames() {
         try {
-            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.BUTTON_NAME_PREFERENCES", Context.MODE_PRIVATE);
+            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             firstButton.setText(sharedPreferences.getString("first_text", ""));
             secondButton.setText(sharedPreferences.getString("second_text", ""));
             thirdButton.setText(sharedPreferences.getString("third_text", ""));
@@ -159,7 +159,7 @@ public class ChangeButtonsActivity extends AppCompatActivity {
 
     public void setNewButtonNames() {
         try {
-            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.BUTTON_NAME_PREFERENCES", Context.MODE_PRIVATE);
+            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("first_text", firstButton.getText().toString());
             editor.putString("second_text", secondButton.getText().toString());
@@ -167,7 +167,7 @@ public class ChangeButtonsActivity extends AppCompatActivity {
             editor.putString("fourth_text", fourthButton.getText().toString());
             editor.apply();
         } catch (Exception e) {
-            Toast.makeText(context, "editing shared preferences file failed", Toast.LENGTH_LONG);
+            Toast.makeText(context, "editing shared preferences file failed", Toast.LENGTH_LONG).show();
         }
     }
 }

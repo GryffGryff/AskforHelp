@@ -11,6 +11,8 @@ public class SettingsActivity extends AppCompatActivity {
     Button changeButton;
     Button editReceivers;
 
+    Button backButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +25,8 @@ public class SettingsActivity extends AppCompatActivity {
     public void setVariables() {
         changeButton = (Button) findViewById(R.id.changeButtons);
         editReceivers = (Button) findViewById(R.id.editReceivers);
+
+        backButton = (Button) findViewById(R.id.backButtonTwo);
     }
 
     public void setClickListener() {
@@ -38,6 +42,14 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SettingsActivity.this, EditRecievers.class);
+                SettingsActivity.this.startActivity(intent);
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingsActivity.this, ChooseRequestsActivity.class);
                 SettingsActivity.this.startActivity(intent);
             }
         });

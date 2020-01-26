@@ -58,7 +58,7 @@ public class ChooseRequestsActivity extends AppCompatActivity {
     public void setNewButtonNames() {
         try {
             Context context = ChooseRequestsActivity.this;
-            SharedPreferences sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.BUTTON_NAME_PREFERENCES", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             firstButton.setText(sharedPreferences.getString("first_text", ""));
             secondButton.setText(sharedPreferences.getString("second_text", ""));
             thirdButton.setText(sharedPreferences.getString("third_text", ""));

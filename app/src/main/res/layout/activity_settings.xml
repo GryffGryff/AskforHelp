@@ -17,4 +17,14 @@
         android:layout_below="@+id/changeButtons"
         android:text="edit recievers"/>
 
+    <Button
+        android:id="@+id/backButtonTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_button"
+        android:text="Back"/>
+
 </RelativeLayout>
