@@ -116,7 +116,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/rounded_button_green"
         android:text="Home"/>
 
 </RelativeLayout>

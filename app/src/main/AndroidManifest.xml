@@ -3,6 +3,8 @@
     package="com.serviceproject.gryffgryff.askforhelp">
 
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
 
     <application
         android:allowBackup="true"

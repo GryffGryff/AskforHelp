@@ -24,7 +24,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void setVariables() {
         changeButton = (Button) findViewById(R.id.changeButtons);
-        editReceivers = (Button) findViewById(R.id.editReceivers);
+        editReceivers = (Button) findViewById(R.id.editContacts);
 
         backButton = (Button) findViewById(R.id.backButtonTwo);
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class EditRecievers extends AppCompatActivity {
+
+    static final int PICK_CONTACT = 1;
 
     Button[] groups = new Button[4];
     Button firstGroup;
@@ -95,7 +98,7 @@ public class EditRecievers extends AppCompatActivity {
         secondGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                pickNewContacts();
             }
         });
 
@@ -182,6 +185,33 @@ public class EditRecievers extends AppCompatActivity {
         }
         setNewGroup.setText("");
     }
+
+    public void pickNewContacts() {
+        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        Toast.makeText(EditRecievers.this, "pickNewContacts was called", Toast.LENGTH_SHORT).show();
+        //intent.setDataAndType(Uri.parse("content://contacts"), ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+        startActivityForResult(intent, PICK_CONTACT);
+    }
+/*
+    public void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
+        Toast.makeText(EditRecievers.this, "result code = " + resultCode + " PICK_CONTACT = " + PICK_CONTACT, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(EditRecievers.this, "onActivityResult was called", Toast.LENGTH_SHORT).show();
+        if (requestCode == PICK_CONTACT) {
+            //Toast.makeText(EditRecievers.this, "first if statement returned true", Toast.LENGTH_SHORT).show();
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(EditRecievers.this, "both if statments returned true", Toast.LENGTH_SHORT).show();
+                Uri contactUri = resultIntent.getData();
+                String[] projection = {ContactsContract.CommonDataKinds.Phone.NUMBER};
+                Cursor cursor = getContentResolver().query(contactUri, projection, null, null, null);
+                cursor.moveToFirst();
+
+                int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                String number = cursor.getString(column);
+
+                Toast.makeText(EditRecievers.this, "Phone number of contact selected is " + number, Toast.LENGTH_LONG).show();
+            }
+        }
+    }*/
 
     public void setNewGroupNames() {
         try {

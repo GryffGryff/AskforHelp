@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.serviceproject.gryffgryff.askforhelp.ChooseContactsActivity">
 
+    <TextView
+        android:id="@+id/contactsPickTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        android:text="Choose Contact Group"/>
+
     <Button
         android:id="@+id/firstContactGroup"
         android:layout_width="match_parent"
@@ -16,7 +26,7 @@
         android:layout_marginBottom="25dp"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:background="#1291ff" />
+    android:background="#89ff12" />
 
     <Button
         android:id="@+id/secondContactGroup"
@@ -28,7 +38,7 @@
         android:layout_marginBottom="25dp"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:background="#12d0ff"/>
+        android:background="#b9ff12"/>
 
     <Button
         android:id="@+id/thirdContactGroup"
@@ -40,7 +50,7 @@
         android:layout_marginBottom="25dp"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:background="#12ffe8" />
+        android:background="#e8ff12" />
 
     <Button
         android:id="@+id/fourthContactGroup"
@@ -52,7 +62,7 @@
         android:layout_marginBottom="30dp"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:background="#12ff89"/>
+        android:background="#ffb912"/>
 
     <Button
         android:id="@+id/backButtonOne"
@@ -65,8 +75,8 @@
         android:layout_marginBottom="20dp"
         android:layout_marginRight="30dp"
         android:gravity="center"
-        android:background="@drawable/rounded_button"
-        android:text="Back"/>
+        android:background="@drawable/rounded_button_orange"
+        android:text="Home"/>
 
 
 </RelativeLayout>

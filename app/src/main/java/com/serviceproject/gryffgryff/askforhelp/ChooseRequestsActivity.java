@@ -23,7 +23,8 @@ public class ChooseRequestsActivity extends AppCompatActivity {
 
     Bundle requestsText = new Bundle();
 
-    Integer requestCode = 3;
+    Integer smsRequestCode = 3;
+    Integer contactsRequestCode = 2;
 
     String[] savedButtonNames;
 
@@ -127,11 +128,17 @@ public class ChooseRequestsActivity extends AppCompatActivity {
 
     public void getPermission() {
         if (ContextCompat.checkSelfPermission(ChooseRequestsActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(ChooseRequestsActivity.this, new String[] {Manifest.permission.SEND_SMS}, requestCode );
-            onRequestPermissionsResult(requestCode, new String[] {Manifest.permission.SEND_SMS}, new int[] {PackageManager.PERMISSION_GRANTED});
+            ActivityCompat.requestPermissions(ChooseRequestsActivity.this, new String[] {Manifest.permission.SEND_SMS}, smsRequestCode);
+            onRequestPermissionsResult(smsRequestCode, new String[] {Manifest.permission.SEND_SMS}, new int[] {PackageManager.PERMISSION_GRANTED});
         } else {
             //permission granted
             //Toast.makeText(ChooseRequestsActivity.this, "permission already granted", Toast.LENGTH_LONG).show();
+        }
+        if(ContextCompat.checkSelfPermission(ChooseRequestsActivity.this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(ChooseRequestsActivity.this, new String[] {Manifest.permission.READ_CONTACTS}, contactsRequestCode);
+            onRequestPermissionsResult(contactsRequestCode, new String[] {Manifest.permission.READ_CONTACTS}, new int[] {PackageManager.PERMISSION_GRANTED});
+        } else {
+            //permission granted
         }
     }
 

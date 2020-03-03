@@ -21,7 +21,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
     Bundle whatToText;
     Bundle whoToText = new Bundle();
 
-    //int requestCode = 2;
+    //int smsRequestCode = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +60,9 @@ public class ChooseContactsActivity extends AppCompatActivity {
 
     public void addNumbersToBundle() {
         whoToText.putStringArray("first_group", new String[] {"4128777232", "4128777338"});
-        whoToText.putStringArray("second_group", new String[] {"4128779326"});
+        whoToText.putStringArray("second_group", new String[] {""});
         whoToText.putStringArray("third_group", new String[] {""});
-        whoToText.putStringArray("fourth_group", new String[] {""});
+        whoToText.putStringArray("fourth_group", new String[] {"4128779326"});
     }
 
     public void setClickListener() {

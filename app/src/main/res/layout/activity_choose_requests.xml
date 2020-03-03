@@ -5,6 +5,16 @@
     android:layout_height="match_parent"
     tools:context="com.serviceproject.gryffgryff.askforhelp.ChooseRequestsActivity">
 
+    <TextView
+        android:id="@+id/requestsPickTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        android:text="Choose Request"/>
+
     <Button
         android:id="@+id/firstRequest"
         android:layout_width="match_parent"
@@ -60,7 +70,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginRight="30dp"
         android:gravity="center"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/rounded_button_green"
         android:text="Settings"/>
 
 </RelativeLayout>

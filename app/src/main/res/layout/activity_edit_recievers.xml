@@ -13,7 +13,6 @@
         android:layout_above="@+id/secondGroup"
         android:layout_marginRight="100dp"
         android:layout_marginBottom="5dp"
-
         android:gravity="center"
         android:textSize="25sp"
         android:textStyle="bold" />
@@ -116,7 +115,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/rounded_button_green"
         android:text="Home"/>
 
 
