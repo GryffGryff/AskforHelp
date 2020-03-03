@@ -206,7 +206,8 @@ public class EditRecievers extends AppCompatActivity {
                 cursor.moveToFirst();
                 int column =  cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
                 String number = cursor.getString(column);
-                Toast.makeText(EditRecievers.this, "number is "+number, Toast.LENGTH_SHORT).show();*/
+                Toast.makeText(EditRecievers.this, "number is "+number, Toast.LENGTH_SHORT).show();
+                */
             }
         }
     }
