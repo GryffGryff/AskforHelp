@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -192,26 +193,23 @@ public class EditRecievers extends AppCompatActivity {
         //intent.setDataAndType(Uri.parse("content://contacts"), ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
         startActivityForResult(intent, PICK_CONTACT);
     }
-/*
+
     public void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
-        Toast.makeText(EditRecievers.this, "result code = " + resultCode + " PICK_CONTACT = " + PICK_CONTACT, Toast.LENGTH_SHORT).show();
-        //Toast.makeText(EditRecievers.this, "onActivityResult was called", Toast.LENGTH_SHORT).show();
+        Log.e("onActivityResult", "onActivityResult was called. RequestCode = " + requestCode + ", resultCode = " + resultCode + ", RESULT_OK = " + RESULT_OK);
         if (requestCode == PICK_CONTACT) {
-            //Toast.makeText(EditRecievers.this, "first if statement returned true", Toast.LENGTH_SHORT).show();
+            Log.e("onActivityResult", "first if statement returned true");
             if (resultCode == RESULT_OK) {
-                Toast.makeText(EditRecievers.this, "both if statments returned true", Toast.LENGTH_SHORT).show();
-                Uri contactUri = resultIntent.getData();
+                Log.e("onActivityResult", "second if statement returned true");
+                /*Uri contactUri = resultIntent.getData();
                 String[] projection = {ContactsContract.CommonDataKinds.Phone.NUMBER};
                 Cursor cursor = getContentResolver().query(contactUri, projection, null, null, null);
                 cursor.moveToFirst();
-
-                int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                int column =  cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
                 String number = cursor.getString(column);
-
-                Toast.makeText(EditRecievers.this, "Phone number of contact selected is " + number, Toast.LENGTH_LONG).show();
+                Toast.makeText(EditRecievers.this, "number is "+number, Toast.LENGTH_SHORT).show();*/
             }
         }
-    }*/
+    }
 
     public void setNewGroupNames() {
         try {
