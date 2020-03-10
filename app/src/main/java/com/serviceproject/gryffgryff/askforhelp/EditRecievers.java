@@ -1,8 +1,11 @@
 package com.serviceproject.gryffgryff.askforhelp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
@@ -194,21 +197,33 @@ public class EditRecievers extends AppCompatActivity {
         startActivityForResult(intent, PICK_CONTACT);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
-        Log.e("onActivityResult", "onActivityResult was called. RequestCode = " + requestCode + ", resultCode = " + resultCode + ", RESULT_OK = " + RESULT_OK);
-        if (requestCode == PICK_CONTACT) {
-            Log.e("onActivityResult", "first if statement returned true");
-            if (resultCode == RESULT_OK) {
-                Log.e("onActivityResult", "second if statement returned true");
-                /*Uri contactUri = resultIntent.getData();
-                String[] projection = {ContactsContract.CommonDataKinds.Phone.NUMBER};
-                Cursor cursor = getContentResolver().query(contactUri, projection, null, null, null);
-                cursor.moveToFirst();
-                int column =  cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-                String number = cursor.getString(column);
-                Toast.makeText(EditRecievers.this, "number is "+number, Toast.LENGTH_SHORT).show();
-                */
-            }
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
+        switch (reqCode) {
+            case (PICK_CONTACT) :
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri contactData = data.getData();
+                    Cursor cursor = managedQuery(contactData, null, null, null, null);
+                    if (cursor.moveToFirst()) {
+
+                        String id  = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+
+                        String hasPhone = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+
+                        if (hasPhone.equalsIgnoreCase("1")) {
+                            Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null);
+                            phones.moveToFirst();
+                            String cNumber = phones.getString(phones.getColumnIndex("data1"));
+                            Log.e("OnActivityResult", "number is: " + cNumber);
+                            Toast.makeText(EditRecievers.this, "number is: " + cNumber, Toast.LENGTH_SHORT).show();
+                        }
+                        String  name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                        Log.e("OnActivtyResult", "name is: " + name);
+                        Toast.makeText(EditRecievers.this, "name is: " + name, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
         }
     }
 

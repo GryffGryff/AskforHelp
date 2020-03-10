@@ -25,6 +25,7 @@ public class ChooseRequestsActivity extends AppCompatActivity {
 
     Integer smsRequestCode = 3;
     Integer contactsRequestCode = 2;
+    Integer locationRequestCode = 4;
 
     String[] savedButtonNames;
 
@@ -137,6 +138,12 @@ public class ChooseRequestsActivity extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(ChooseRequestsActivity.this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(ChooseRequestsActivity.this, new String[] {Manifest.permission.READ_CONTACTS}, contactsRequestCode);
             onRequestPermissionsResult(contactsRequestCode, new String[] {Manifest.permission.READ_CONTACTS}, new int[] {PackageManager.PERMISSION_GRANTED});
+        } else {
+            //permission granted
+        }
+        if (ContextCompat.checkSelfPermission(ChooseRequestsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(ChooseRequestsActivity.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, locationRequestCode);
+            onRequestPermissionsResult(locationRequestCode, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, new int[] {PackageManager.PERMISSION_GRANTED});
         } else {
             //permission granted
         }

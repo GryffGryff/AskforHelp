@@ -20,9 +20,10 @@ public class ChooseContactsActivity extends AppCompatActivity {
     Button back;
     Bundle whatToText;
     Bundle whoToText = new Bundle();
-
-    //int smsRequestCode = 2;
-
+/*
+    LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+    LocationProvider locationProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
