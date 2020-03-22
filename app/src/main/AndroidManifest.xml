@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.READ_SMS"/>
 
     <application
         android:allowBackup="true"
@@ -24,7 +24,7 @@
         <activity android:name=".ChooseContactsActivity" />
         <activity android:name=".ChangeButtonsActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".EditRecievers"></activity>
+        <activity android:name=".EditRecievers"/>
     </application>
 
 </manifest>

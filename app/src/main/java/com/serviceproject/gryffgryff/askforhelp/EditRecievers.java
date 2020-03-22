@@ -18,6 +18,9 @@ import android.widget.Toast;
 public class EditRecievers extends AppCompatActivity {
 
     static final int PICK_CONTACT = 1;
+    static final int MAX_PICK_CONTACT = 10;
+
+    int whichGroup;
 
     Button[] groups = new Button[4];
     Button firstGroup;
@@ -35,6 +38,11 @@ public class EditRecievers extends AppCompatActivity {
 
     EditText setNewGroup;
 
+    String firstGroupNumber;
+    String secondGroupNumber;
+    String thirdGroupNumber;
+    String fourthGroupNumber;
+
     SharedPreferences sharedPreferences;
     Context context;
 
@@ -47,6 +55,7 @@ public class EditRecievers extends AppCompatActivity {
         setVariables();
         addGroupsToArray();
         setGroupNames();
+        setPhoneNumbers();
         setClickListener();
     }
 
@@ -84,6 +93,21 @@ public class EditRecievers extends AppCompatActivity {
         }
     }
 
+    public void setPhoneNumbers() {
+        try {
+            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
+            firstGroupNumber = sharedPreferences.getString("first_group_number", "");
+            secondGroupNumber = sharedPreferences.getString("second_group_number", "");
+            thirdGroupNumber = sharedPreferences.getString("third_group_number", "");
+            fourthGroupNumber = sharedPreferences.getString("fourth_group_number", "");
+        } catch (Exception e) {
+            firstGroupNumber = "";
+            secondGroupNumber = "";
+            thirdGroupNumber = "";
+            fourthGroupNumber = "";
+        }
+    }
+
     public void addGroupsToArray() {
         groups[0] = firstGroup;
         groups[1] = secondGroup;
@@ -95,28 +119,28 @@ public class EditRecievers extends AppCompatActivity {
         firstGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                pickNewContacts(1);
             }
         });
 
         secondGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pickNewContacts();
+                pickNewContacts(2);
             }
         });
 
         thirdGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                pickNewContacts(3);
             }
         });
 
         fourthGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                pickNewContacts(4);
             }
         });
 
@@ -190,15 +214,20 @@ public class EditRecievers extends AppCompatActivity {
         setNewGroup.setText("");
     }
 
-    public void pickNewContacts() {
+    public void pickNewContacts(int group) {
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         Toast.makeText(EditRecievers.this, "pickNewContacts was called", Toast.LENGTH_SHORT).show();
+        whichGroup = group;
         //intent.setDataAndType(Uri.parse("content://contacts"), ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
         startActivityForResult(intent, PICK_CONTACT);
     }
 
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
+
+        String number = null;
+
+        String name = null;
 
         switch (reqCode) {
             case (PICK_CONTACT) :
@@ -214,16 +243,46 @@ public class EditRecievers extends AppCompatActivity {
                         if (hasPhone.equalsIgnoreCase("1")) {
                             Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null);
                             phones.moveToFirst();
-                            String cNumber = phones.getString(phones.getColumnIndex("data1"));
-                            Log.e("OnActivityResult", "number is: " + cNumber);
-                            Toast.makeText(EditRecievers.this, "number is: " + cNumber, Toast.LENGTH_SHORT).show();
+                            number= phones.getString(phones.getColumnIndex("data1"));
+                            Log.e("OnActivityResult", "number is: " + number);
+                            Toast.makeText(EditRecievers.this, "number is: " + number, Toast.LENGTH_SHORT).show();
                         }
-                        String  name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                        name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                         Log.e("OnActivtyResult", "name is: " + name);
                         Toast.makeText(EditRecievers.this, "name is: " + name, Toast.LENGTH_SHORT).show();
+
                     }
                 }
                 break;
+        }
+
+        number = number.replaceAll("[^0-9+]", "");
+        Log.e("onActivityResult", number);
+        setNewNumber(number);
+
+    }
+
+    public void setNewNumber(String number) {
+        try {
+            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            Log.e("setNewNumber", "setNewNumber was called");
+            if (whichGroup == 1) {
+                Log.e("setNewNumber", "first if statement returned true");
+                editor.putString("first_group_number", number);
+                Log.e("setNewNumber", number + "was added to group one.");
+            } else if (whichGroup == 2) {
+                editor.putString("second_group_number", number);
+            } else if (whichGroup == 3) {
+                editor.putString("third_group_number", number);
+            } else if (whichGroup == 4) {
+                editor.putString("fourth_group_number", number);
+            } else {
+                Toast.makeText(context, "number did not get added to any group", Toast.LENGTH_LONG).show();
+            }
+            editor.apply();
+        } catch (Exception e) {
+            Toast.makeText(context, "editing shared preferences file failed", Toast.LENGTH_LONG).show();
         }
     }
 

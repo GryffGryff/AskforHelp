@@ -7,9 +7,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.klinker.android.send_message.Message;
+import com.klinker.android.send_message.Settings;
+import com.klinker.android.send_message.Transaction;
+
+import java.util.Arrays;
+
 
 public class ChooseContactsActivity extends AppCompatActivity {
 
@@ -20,10 +28,10 @@ public class ChooseContactsActivity extends AppCompatActivity {
     Button back;
     Bundle whatToText;
     Bundle whoToText = new Bundle();
-/*
-    LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-    LocationProvider locationProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
-*/
+    Context context;
+
+    //LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +49,11 @@ public class ChooseContactsActivity extends AppCompatActivity {
         fourthCG = (Button) findViewById(R.id.fourthContactGroup);
         back = (Button) findViewById(R.id.backButtonOne);
         whatToText = getIntent().getExtras();
+        context = ChooseContactsActivity.this;
     }
 
     public void setNewGroupNames() {
         try {
-            Context context = ChooseContactsActivity.this;
             SharedPreferences sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             firstCG.setText(sharedPreferences.getString("first_group", ""));
             secondCG.setText(sharedPreferences.getString("second_group", ""));
@@ -60,17 +68,26 @@ public class ChooseContactsActivity extends AppCompatActivity {
     }
 
     public void addNumbersToBundle() {
-        whoToText.putStringArray("first_group", new String[] {"4128777232", "4128777338"});
-        whoToText.putStringArray("second_group", new String[] {""});
-        whoToText.putStringArray("third_group", new String[] {""});
-        whoToText.putStringArray("fourth_group", new String[] {"4128779326"});
+        try {
+            SharedPreferences sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
+            whoToText.putStringArray("first_group", new String[] {sharedPreferences.getString("first_group_number", "")});
+            whoToText.putStringArray("second_group", new String[] {sharedPreferences.getString("second_group_number", "")});
+            whoToText.putStringArray("third_group", new String[] {sharedPreferences.getString("third_group_number", "")});
+            whoToText.putStringArray("fourth_group", new String[] {sharedPreferences.getString("fourth_group_number", "")});
+        } catch (Exception e) {
+            whoToText.putStringArray("first_group", new String[] {""});
+            whoToText.putStringArray("second_group", new String[] {""});
+            whoToText.putStringArray("third_group", new String[] {""});
+            whoToText.putStringArray("fourth_group", new String[] {""});
+        }
     }
 
     public void setClickListener() {
         firstCG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textPerson("first_group");
+                sendText("first_group");
+                //textPerson("first_group");
             }
         });
 
@@ -104,6 +121,25 @@ public class ChooseContactsActivity extends AppCompatActivity {
         });
     }
 
+    public void sendText(String text) {
+        Log.e("sendText", "sendText was called");
+        Settings sendSettings = new Settings();
+        sendSettings.setMmsc("https://mmsc.mobile.att.net");
+        sendSettings.setProxy("proxy.mobile.att.net");
+        sendSettings.setPort("80");
+        sendSettings.setUseSystemSending(true);
+        Log.e("sendText", Boolean.toString(sendSettings.getGroup()));
+        String textBody = (whatToText.getString(whatToText.getString("last_button_pressed")));
+
+        Transaction transaction = new Transaction(ChooseContactsActivity.this, sendSettings);
+
+        //Message message = new Message(textBody, whoToText.getStringArray(text));
+        Message message = new Message(textBody, new String[] {"4128777232", "4128779326"});
+        Log.e("sendText", Arrays.toString(message.getAddresses()));
+        transaction.sendNewMessage(message, Transaction.NO_THREAD_ID);
+        Log.e("sendText", "text should have been sent");
+    }
+
     public void textPerson(String text) {
         //error handling?
         String address;
@@ -115,13 +151,13 @@ public class ChooseContactsActivity extends AppCompatActivity {
         String[] numbers = whoToText.getStringArray(text);
         int lengthOfArray = numbers.length;
 
-        for (int i = 0; i<lengthOfArray; i++) {
-            address = numbers[i];
+            for (int i = 0; i < lengthOfArray; i++) {
+                address = numbers[i];
 
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(address, scAddress, textBody, sentIntent, deliveryIntent);
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(address, scAddress, textBody, sentIntent, deliveryIntent);
 
-            Toast.makeText(ChooseContactsActivity.this, whatToText.getString(whatToText.getString("last_button_pressed")) + " was sent to ", Toast.LENGTH_LONG).show();
-        }
+                Toast.makeText(ChooseContactsActivity.this, whatToText.getString(whatToText.getString("last_button_pressed")) + " was sent to ", Toast.LENGTH_LONG).show();
+            }
     }
 }
