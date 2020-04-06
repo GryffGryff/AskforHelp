@@ -24,7 +24,7 @@
         <activity android:name=".ChooseContactsActivity" />
         <activity android:name=".ChangeButtonsActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".EditRecievers"/>
+        <activity android:name=".ChangeContactsActivity"/>
     </application>
 
 </manifest>

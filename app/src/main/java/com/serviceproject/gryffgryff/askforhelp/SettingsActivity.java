@@ -41,7 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
         editReceivers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SettingsActivity.this, EditRecievers.class);
+                Intent intent = new Intent(SettingsActivity.this, ChangeContactsActivity.class);
                 SettingsActivity.this.startActivity(intent);
             }
         });

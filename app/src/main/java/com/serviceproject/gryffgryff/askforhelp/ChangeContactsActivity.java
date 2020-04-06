@@ -1,13 +1,9 @@
 package com.serviceproject.gryffgryff.askforhelp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -15,10 +11,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class EditRecievers extends AppCompatActivity {
+import com.wafflecopter.multicontactpicker.ContactResult;
+import com.wafflecopter.multicontactpicker.LimitColumn;
+import com.wafflecopter.multicontactpicker.MultiContactPicker;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class ChangeContactsActivity extends AppCompatActivity {
 
     static final int PICK_CONTACT = 1;
     static final int MAX_PICK_CONTACT = 10;
+    static final int CONTACT_PICKER_REQUEST = 3;
 
     int whichGroup;
 
@@ -43,6 +47,8 @@ public class EditRecievers extends AppCompatActivity {
     String thirdGroupNumber;
     String fourthGroupNumber;
 
+    ArrayList<ContactResult> results = new ArrayList<>();
+
     SharedPreferences sharedPreferences;
     Context context;
 
@@ -50,7 +56,7 @@ public class EditRecievers extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_recievers);
+        setContentView(R.layout.activity_change_contacts);
 
         setVariables();
         addGroupsToArray();
@@ -75,7 +81,7 @@ public class EditRecievers extends AppCompatActivity {
 
         home = (Button) findViewById(R.id.homeButtonContacts);
 
-        context = EditRecievers.this;
+        context = ChangeContactsActivity.this;
     }
 
     public void setGroupNames() {
@@ -119,6 +125,7 @@ public class EditRecievers extends AppCompatActivity {
         firstGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //pickNewContact(1);
                 pickNewContacts(1);
             }
         });
@@ -126,6 +133,7 @@ public class EditRecievers extends AppCompatActivity {
         secondGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //pickNewContact(2);
                 pickNewContacts(2);
             }
         });
@@ -133,6 +141,7 @@ public class EditRecievers extends AppCompatActivity {
         thirdGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //pickNewContact(3);
                 pickNewContacts(3);
             }
         });
@@ -140,6 +149,7 @@ public class EditRecievers extends AppCompatActivity {
         fourthGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //pickNewContact(4);
                 pickNewContacts(4);
             }
         });
@@ -182,9 +192,9 @@ public class EditRecievers extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EditRecievers.this, ChooseRequestsActivity.class);
+                Intent intent = new Intent(ChangeContactsActivity.this, ChooseRequestsActivity.class);
                 setNewGroupNames();
-                EditRecievers.this.startActivity(intent);
+                ChangeContactsActivity.this.startActivity(intent);
             }
         });
     }
@@ -215,8 +225,30 @@ public class EditRecievers extends AppCompatActivity {
     }
 
     public void pickNewContacts(int group) {
+        whichGroup = group;
+        new MultiContactPicker.Builder(ChangeContactsActivity.this).limitToColumn(LimitColumn.PHONE).showPickerForResult(CONTACT_PICKER_REQUEST);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == CONTACT_PICKER_REQUEST) {
+            if(resultCode == RESULT_OK) {
+                results.addAll(MultiContactPicker.obtainResult(data));
+                printOutResults();
+            }
+        }
+    }
+
+    public void printOutResults() {
+        Iterator iterator = results.iterator();
+        while (iterator.hasNext()) {
+            Log.e("ChangeContactsActivity", "next object in results is: " + iterator.next());
+        }
+    }
+/*
+    public void pickNewContact(int group) {
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-        Toast.makeText(EditRecievers.this, "pickNewContacts was called", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ChangeContactsActivity.this, "pickNewContacts was called", Toast.LENGTH_SHORT).show();
         whichGroup = group;
         //intent.setDataAndType(Uri.parse("content://contacts"), ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
         startActivityForResult(intent, PICK_CONTACT);
@@ -245,11 +277,11 @@ public class EditRecievers extends AppCompatActivity {
                             phones.moveToFirst();
                             number= phones.getString(phones.getColumnIndex("data1"));
                             Log.e("OnActivityResult", "number is: " + number);
-                            Toast.makeText(EditRecievers.this, "number is: " + number, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ChangeContactsActivity.this, "number is: " + number, Toast.LENGTH_SHORT).show();
                         }
                         name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                         Log.e("OnActivtyResult", "name is: " + name);
-                        Toast.makeText(EditRecievers.this, "name is: " + name, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangeContactsActivity.this, "name is: " + name, Toast.LENGTH_SHORT).show();
 
                     }
                 }
@@ -261,6 +293,9 @@ public class EditRecievers extends AppCompatActivity {
         setNewNumber(number);
 
     }
+
+ */
+
 
     public void setNewNumber(String number) {
         try {
