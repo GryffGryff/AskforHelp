@@ -1,4 +1,4 @@
-package com.serviceproject.gryffgryff.askforhelp;
+package com.example.askforhelp;
 
 import android.Manifest;
 import android.content.Context;
@@ -6,12 +6,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class ChooseRequestsActivity extends AppCompatActivity {
 
@@ -26,7 +27,7 @@ public class ChooseRequestsActivity extends AppCompatActivity {
     Integer smsRequestCode = 3;
     Integer contactsRequestCode = 2;
     Integer locationRequestCode = 4;
-    Integer readSMSRequestCode = 5;
+    Integer internetRequestCode = 5;
 
     String[] savedButtonNames;
 
@@ -50,11 +51,11 @@ public class ChooseRequestsActivity extends AppCompatActivity {
     }
 
     public void setVariables() {
-        firstButton = (Button) findViewById(R.id.firstRequest);
-        secondButton = (Button) findViewById(R.id.secondRequest);
-        thirdButton = (Button) findViewById(R.id.thirdRequest);
-        fourthButton = (Button) findViewById(R.id.fourthRequest);
-        settings = (Button) findViewById(R.id.settings);
+        firstButton = findViewById(R.id.firstRequest);
+        secondButton = findViewById(R.id.secondRequest);
+        thirdButton = findViewById(R.id.thirdRequest);
+        fourthButton = findViewById(R.id.fourthRequest);
+        settings = findViewById(R.id.settings);
         savedButtonNames = new String[4];
     }
 
@@ -148,14 +149,14 @@ public class ChooseRequestsActivity extends AppCompatActivity {
         } else {
             //permission granted
         }
-        if (ContextCompat.checkSelfPermission(ChooseRequestsActivity.this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(ChooseRequestsActivity.this, new String[] {Manifest.permission.READ_SMS}, readSMSRequestCode);
-            onRequestPermissionsResult(readSMSRequestCode, new String[] {Manifest.permission.READ_SMS}, new int[] {PackageManager.PERMISSION_GRANTED});
+        if (ContextCompat.checkSelfPermission(ChooseRequestsActivity.this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(ChooseRequestsActivity.this, new String[] {Manifest.permission.INTERNET}, internetRequestCode);
+            onRequestPermissionsResult(internetRequestCode, new String[] {Manifest.permission.INTERNET}, new int[] {PackageManager.PERMISSION_GRANTED});
         } else {
             //permission granted
         }
-
     }
 
 
 }
+

@@ -1,27 +1,30 @@
-package com.serviceproject.gryffgryff.askforhelp;
+package com.example.askforhelp;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.wafflecopter.multicontactpicker.ContactResult;
 import com.wafflecopter.multicontactpicker.LimitColumn;
 import com.wafflecopter.multicontactpicker.MultiContactPicker;
+import com.wafflecopter.multicontactpicker.RxContacts.PhoneNumber;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Set;
 
 public class ChangeContactsActivity extends AppCompatActivity {
 
-    static final int PICK_CONTACT = 1;
-    static final int MAX_PICK_CONTACT = 10;
     static final int CONTACT_PICKER_REQUEST = 3;
 
     int whichGroup;
@@ -42,16 +45,17 @@ public class ChangeContactsActivity extends AppCompatActivity {
 
     EditText setNewGroup;
 
-    String firstGroupNumber;
-    String secondGroupNumber;
-    String thirdGroupNumber;
-    String fourthGroupNumber;
+    List<String> firstGroupIds = new ArrayList<>();
+    List<String> secondGroupIds = new ArrayList<>();
+    List<String> thirdGroupIds = new ArrayList<>();
+    List<String> fourthGroupIds = new ArrayList<>();
 
-    ArrayList<ContactResult> results = new ArrayList<>();
+    List<ContactResult> contactResults = new ArrayList<>();
+    Set<String> pNumbers = new HashSet<String>();
+    Set<String> contactIds = new HashSet<>();
 
     SharedPreferences sharedPreferences;
     Context context;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,57 +64,52 @@ public class ChangeContactsActivity extends AppCompatActivity {
 
         setVariables();
         addGroupsToArray();
-        setGroupNames();
-        setPhoneNumbers();
+        setGroupNamesAndIds();
         setClickListener();
     }
 
     public void setVariables() {
-        firstGroup = (Button) findViewById(R.id.firstGroup);
-        secondGroup = (Button) findViewById(R.id.secondGroup);
-        thirdGroup = (Button) findViewById(R.id.thirdGroup);
-        fourthGroup = (Button) findViewById(R.id.fourthGroup);
+        firstGroup = findViewById(R.id.firstGroup);
+        secondGroup = findViewById(R.id.secondGroup);
+        thirdGroup = findViewById(R.id.thirdGroup);
+        fourthGroup = findViewById(R.id.fourthGroup);
 
-        deleteFirstGroup = (Button) findViewById(R.id.deleteFirstGroup);
-        deleteSecondGroup = (Button) findViewById(R.id.deleteSecondGroup);
-        deleteThirdGroup = (Button) findViewById(R.id.deleteThirdGroup);
-        deleteFourthGroup = (Button) findViewById(R.id.deleteFourthGroup);
+        deleteFirstGroup = findViewById(R.id.deleteFirstGroup);
+        deleteSecondGroup = findViewById(R.id.deleteSecondGroup);
+        deleteThirdGroup = findViewById(R.id.deleteThirdGroup);
+        deleteFourthGroup = findViewById(R.id.deleteFourthGroup);
 
-        saveNewGroup = (Button) findViewById(R.id.saveNewGroup);
-        setNewGroup = (EditText) findViewById(R.id.setNewGroup);
+        saveNewGroup = findViewById(R.id.saveNewGroup);
+        setNewGroup = findViewById(R.id.setNewGroup);
 
-        home = (Button) findViewById(R.id.homeButtonContacts);
+        home = findViewById(R.id.homeButtonContacts);
 
         context = ChangeContactsActivity.this;
     }
 
-    public void setGroupNames() {
+    public void setGroupNamesAndIds() {
         try {
             sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             firstGroup.setText(sharedPreferences.getString("first_group", ""));
             secondGroup.setText(sharedPreferences.getString("second_group", ""));
             thirdGroup.setText(sharedPreferences.getString("third_group", ""));
             fourthGroup.setText(sharedPreferences.getString("fourth_group", ""));
+
+            firstGroupIds.addAll(sharedPreferences.getStringSet("first_group_ids", new HashSet<String>()));
+            secondGroupIds.addAll(sharedPreferences.getStringSet("second_group_ids", new HashSet<String>()));
+            thirdGroupIds.addAll(sharedPreferences.getStringSet("third_group_ids", new HashSet<String>()));
+            fourthGroupIds.addAll(sharedPreferences.getStringSet("fourth_group_ids", new HashSet<String>()));
+
         } catch (Exception e) {
             firstGroup.setText("");
             secondGroup.setText("");
             thirdGroup.setText("");
             fourthGroup.setText("");
-        }
-    }
 
-    public void setPhoneNumbers() {
-        try {
-            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
-            firstGroupNumber = sharedPreferences.getString("first_group_number", "");
-            secondGroupNumber = sharedPreferences.getString("second_group_number", "");
-            thirdGroupNumber = sharedPreferences.getString("third_group_number", "");
-            fourthGroupNumber = sharedPreferences.getString("fourth_group_number", "");
-        } catch (Exception e) {
-            firstGroupNumber = "";
-            secondGroupNumber = "";
-            thirdGroupNumber = "";
-            fourthGroupNumber = "";
+            firstGroupIds.clear();
+            secondGroupIds.clear();
+            thirdGroupIds.clear();
+            fourthGroupIds.clear();
         }
     }
 
@@ -226,25 +225,64 @@ public class ChangeContactsActivity extends AppCompatActivity {
 
     public void pickNewContacts(int group) {
         whichGroup = group;
-        new MultiContactPicker.Builder(ChangeContactsActivity.this).limitToColumn(LimitColumn.PHONE).showPickerForResult(CONTACT_PICKER_REQUEST);
+        if(group == 1) {
+            String[] sIds = makeIdArray(firstGroupIds.toArray());
+            new MultiContactPicker.Builder(ChangeContactsActivity.this).limitToColumn(LimitColumn.PHONE).setSelectedContacts(sIds).showPickerForResult(CONTACT_PICKER_REQUEST);
+        } else if (group == 2) {
+            String[] sIds = makeIdArray(secondGroupIds.toArray());
+            new MultiContactPicker.Builder(ChangeContactsActivity.this).limitToColumn(LimitColumn.PHONE).setSelectedContacts(sIds).showPickerForResult(CONTACT_PICKER_REQUEST);
+        } else if (group == 3) {
+            String[] sIds = makeIdArray(thirdGroupIds.toArray());
+            new MultiContactPicker.Builder(ChangeContactsActivity.this).limitToColumn(LimitColumn.PHONE).setSelectedContacts(sIds).showPickerForResult(CONTACT_PICKER_REQUEST);
+        } else if (group == 4) {
+            String[] sIds = makeIdArray(fourthGroupIds.toArray());
+            new MultiContactPicker.Builder(ChangeContactsActivity.this).limitToColumn(LimitColumn.PHONE).setSelectedContacts(sIds).showPickerForResult(CONTACT_PICKER_REQUEST);
+        }
+        /*
+        new MultiContactPicker.Builder(ChangeContactsActivity.this).limitToColumn(LimitColumn.PHONE).setSelectedContacts("455", "451", "460", "476").showPickerForResult(CONTACT_PICKER_REQUEST);
+    */
+    }
+
+    public String[] makeIdArray(Object[] ids) {
+        int len = ids.length;
+        String[] sIds = new String[len];
+        for(int i = 0; i < len; i++) {
+            sIds[i] = (String) ids[i];
+        }
+        return sIds;
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == CONTACT_PICKER_REQUEST) {
             if(resultCode == RESULT_OK) {
-                results.addAll(MultiContactPicker.obtainResult(data));
+                contactResults.addAll(MultiContactPicker.obtainResult(data));
                 printOutResults();
             }
         }
     }
 
+
     public void printOutResults() {
-        Iterator iterator = results.iterator();
-        while (iterator.hasNext()) {
-            Log.e("ChangeContactsActivity", "next object in results is: " + iterator.next());
+        ListIterator listIterator = contactResults.listIterator();
+        while (listIterator.hasNext()) {
+           ContactResult contactResult =  (ContactResult) listIterator.next();
+           contactIds.add(contactResult.getContactID());
+           List<PhoneNumber> phoneNumbers = new ArrayList<>();
+           phoneNumbers.addAll(contactResult.getPhoneNumbers());
+           ListIterator numbers = phoneNumbers.listIterator();
+           String mobile = "";
+           while (numbers.hasNext()) {
+               PhoneNumber p = (PhoneNumber) numbers.next();
+               if(p.getTypeLabel().equalsIgnoreCase("mobile")) {
+                   mobile = p.getNumber();
+               }
+           }
+           pNumbers.add(mobile);
+           Log.e("ChangeContactsActivity", "1st number is: " + mobile);
         }
+        setNewNumber();
     }
+
 /*
     public void pickNewContact(int group) {
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
@@ -296,22 +334,22 @@ public class ChangeContactsActivity extends AppCompatActivity {
 
  */
 
-
-    public void setNewNumber(String number) {
+    public void setNewNumber() {
         try {
             sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            Log.e("setNewNumber", "setNewNumber was called");
             if (whichGroup == 1) {
-                Log.e("setNewNumber", "first if statement returned true");
-                editor.putString("first_group_number", number);
-                Log.e("setNewNumber", number + "was added to group one.");
+                editor.putStringSet("first_group_number", pNumbers);
+                editor.putStringSet("first_group_ids", contactIds);
             } else if (whichGroup == 2) {
-                editor.putString("second_group_number", number);
+                editor.putStringSet("second_group_number", pNumbers);
+                editor.putStringSet("second_group_ids", contactIds);
             } else if (whichGroup == 3) {
-                editor.putString("third_group_number", number);
+                editor.putStringSet("third_group_number", pNumbers);
+                editor.putStringSet("third_group_ids", contactIds);
             } else if (whichGroup == 4) {
-                editor.putString("fourth_group_number", number);
+                editor.putStringSet("fourth_group_number", pNumbers);
+                editor.putStringSet("fourth_group_ids", contactIds);
             } else {
                 Toast.makeText(context, "number did not get added to any group", Toast.LENGTH_LONG).show();
             }
@@ -336,3 +374,14 @@ public class ChangeContactsActivity extends AppCompatActivity {
     }
 }
 
+/*
+Contact result id is: 455
+2020-04-14 10:15:59.816 28516-28516/com.example.askforhelp E/ChangeContactsActivity: 1st number is: 4128777232
+2020-04-14 10:15:59.816 28516-28516/com.example.askforhelp E/ChangeContactsActivity: Contact result id is: 451
+2020-04-14 10:15:59.816 28516-28516/com.example.askforhelp E/ChangeContactsActivity: 1st number is: (412)877-7338
+2020-04-14 10:15:59.817 28516-28516/com.example.askforhelp E/ChangeContactsActivity: Contact result id is: 460
+2020-04-14 10:15:59.817 28516-28516/com.example.askforhelp E/ChangeContactsActivity: 1st number is: 4123700256
+2020-04-14 10:15:59.817 28516-28516/com.example.askforhelp E/ChangeContactsActivity: Contact result id is: 476
+2020-04-14 10:15:59.817 28516-28516/com.example.askforhelp E/ChangeContactsActivity: 1st number is: +1734-431-4564
+
+ */

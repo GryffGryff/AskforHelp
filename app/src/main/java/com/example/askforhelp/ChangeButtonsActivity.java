@@ -1,15 +1,16 @@
-package com.serviceproject.gryffgryff.askforhelp;
+package com.example.askforhelp;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ChangeButtonsActivity extends AppCompatActivity {
 
@@ -33,7 +34,6 @@ public class ChangeButtonsActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     Context context;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,20 +53,20 @@ public class ChangeButtonsActivity extends AppCompatActivity {
     }
 
     public void setVariables() {
-        firstButton = (TextView) findViewById(R.id.firstButton);
-        secondButton = (TextView) findViewById(R.id.secondButton);
-        thirdButton = (TextView) findViewById(R.id.thirdButton);
-        fourthButton = (TextView) findViewById(R.id.fourthButton);
+        firstButton = findViewById(R.id.firstButton);
+        secondButton = findViewById(R.id.secondButton);
+        thirdButton = findViewById(R.id.thirdButton);
+        fourthButton = findViewById(R.id.fourthButton);
 
-        deleteFirstButton = (Button) findViewById(R.id.deleteFirstButton);
-        deleteSecondButton = (Button) findViewById(R.id.deleteSecondButton);
-        deleteThirdButton = (Button) findViewById(R.id.deleteThirdButton);
-        deleteFourthButton = (Button) findViewById(R.id.deleteFourthButton);
+        deleteFirstButton = findViewById(R.id.deleteFirstButton);
+        deleteSecondButton = findViewById(R.id.deleteSecondButton);
+        deleteThirdButton = findViewById(R.id.deleteThirdButton);
+        deleteFourthButton = findViewById(R.id.deleteFourthButton);
 
-        saveNewButton = (Button) findViewById(R.id.saveNewButton);
-        setNewButton = (EditText) findViewById(R.id.setNewButton);
+        saveNewButton = findViewById(R.id.saveNewButton);
+        setNewButton = findViewById(R.id.setNewButton);
 
-        homeButton = (Button) findViewById(R.id.homeButtonRequests);
+        homeButton = findViewById(R.id.homeButtonRequests);
 
         context = ChangeButtonsActivity.this;
     }

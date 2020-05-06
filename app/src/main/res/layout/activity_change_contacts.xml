@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="20dp"
-    tools:context="com.serviceproject.gryffgryff.askforhelp.ChangeContactsActivity">
+    tools:context=".ChangeContactsActivity">
 
     <Button
         android:id="@+id/firstGroup"
@@ -15,7 +16,8 @@
         android:layout_marginBottom="5dp"
         android:gravity="center"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginEnd="100dp" />
 
 
     <Button
@@ -36,7 +38,8 @@
 
         android:gravity="center"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginEnd="100dp" />
 
 
     <Button
@@ -57,7 +60,8 @@
         android:layout_marginBottom="5dp"
         android:gravity="center"
         android:textSize="25sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_marginEnd="100dp" />
 
     <Button
         android:id="@+id/deleteThirdGroup"
@@ -76,7 +80,8 @@
         android:layout_marginRight="100dp"
         android:gravity="center"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginEnd="100dp" />
 
     <Button
         android:id="@+id/deleteFourthGroup"
@@ -117,6 +122,5 @@
         android:gravity="center"
         android:background="@drawable/rounded_button_green"
         android:text="Home"/>
-
 
 </RelativeLayout>

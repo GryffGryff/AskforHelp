@@ -1,10 +1,11 @@
-package com.serviceproject.gryffgryff.askforhelp;
+package com.example.askforhelp;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -17,16 +18,15 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
         setVariables();
         setClickListener();
     }
 
     public void setVariables() {
-        changeButton = (Button) findViewById(R.id.changeButtons);
-        editReceivers = (Button) findViewById(R.id.editContacts);
+        changeButton = findViewById(R.id.changeButtons);
+        editReceivers = findViewById(R.id.editContacts);
 
-        backButton = (Button) findViewById(R.id.backButtonTwo);
+        backButton = findViewById(R.id.backButtonTwo);
     }
 
     public void setClickListener() {
@@ -55,3 +55,4 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 }
+
