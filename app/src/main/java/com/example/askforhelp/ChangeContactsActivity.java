@@ -153,6 +153,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 bumpUpNames(0);
                 deleteIds("first_group_ids");
+                firstGroupIds.clear();
             }
         });
 
@@ -161,6 +162,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 bumpUpNames(1);
                 deleteIds("second_group_ids");
+                secondGroupIds.clear();
             }
         });
 
@@ -169,6 +171,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 bumpUpNames(2);
                 deleteIds("third_group_ids");
+                thirdGroupIds.clear();
             }
         });
 
@@ -177,6 +180,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 bumpUpNames(3);
                 deleteIds("fourth_group_ids");
+                fourthGroupIds.clear();
             }
         });
 
