@@ -283,56 +283,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
         setNewNumber();
     }
 
-/*
-    public void pickNewContact(int group) {
-        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-        Toast.makeText(ChangeContactsActivity.this, "pickNewContacts was called", Toast.LENGTH_SHORT).show();
-        whichGroup = group;
-        //intent.setDataAndType(Uri.parse("content://contacts"), ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-        startActivityForResult(intent, PICK_CONTACT);
-    }
 
-    public void onActivityResult(int reqCode, int resultCode, Intent data) {
-        super.onActivityResult(reqCode, resultCode, data);
-
-        String number = null;
-
-        String name = null;
-
-        switch (reqCode) {
-            case (PICK_CONTACT) :
-                if (resultCode == Activity.RESULT_OK) {
-                    Uri contactData = data.getData();
-                    Cursor cursor = managedQuery(contactData, null, null, null, null);
-                    if (cursor.moveToFirst()) {
-
-                        String id  = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
-
-                        String hasPhone = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
-
-                        if (hasPhone.equalsIgnoreCase("1")) {
-                            Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null);
-                            phones.moveToFirst();
-                            number= phones.getString(phones.getColumnIndex("data1"));
-                            Log.e("OnActivityResult", "number is: " + number);
-                            Toast.makeText(ChangeContactsActivity.this, "number is: " + number, Toast.LENGTH_SHORT).show();
-                        }
-                        name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                        Log.e("OnActivtyResult", "name is: " + name);
-                        Toast.makeText(ChangeContactsActivity.this, "name is: " + name, Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-                break;
-        }
-
-        number = number.replaceAll("[^0-9+]", "");
-        Log.e("onActivityResult", number);
-        setNewNumber(number);
-
-    }
-
- */
 
     public void setNewNumber() {
         try {
@@ -374,14 +325,3 @@ public class ChangeContactsActivity extends AppCompatActivity {
     }
 }
 
-/*
-Contact result id is: 455
-2020-04-14 10:15:59.816 28516-28516/com.example.askforhelp E/ChangeContactsActivity: 1st number is: 4128777232
-2020-04-14 10:15:59.816 28516-28516/com.example.askforhelp E/ChangeContactsActivity: Contact result id is: 451
-2020-04-14 10:15:59.816 28516-28516/com.example.askforhelp E/ChangeContactsActivity: 1st number is: (412)877-7338
-2020-04-14 10:15:59.817 28516-28516/com.example.askforhelp E/ChangeContactsActivity: Contact result id is: 460
-2020-04-14 10:15:59.817 28516-28516/com.example.askforhelp E/ChangeContactsActivity: 1st number is: 4123700256
-2020-04-14 10:15:59.817 28516-28516/com.example.askforhelp E/ChangeContactsActivity: Contact result id is: 476
-2020-04-14 10:15:59.817 28516-28516/com.example.askforhelp E/ChangeContactsActivity: 1st number is: +1734-431-4564
-
- */

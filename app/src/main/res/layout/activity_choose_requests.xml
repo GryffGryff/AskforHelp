@@ -73,5 +73,6 @@
         android:gravity="center"
         android:background="@drawable/rounded_button_green"
         android:text="Settings"
-        android:layout_marginEnd="30dp" />
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"/>
 </RelativeLayout>

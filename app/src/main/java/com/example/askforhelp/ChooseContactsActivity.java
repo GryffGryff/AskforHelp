@@ -184,30 +184,6 @@ public class ChooseContactsActivity extends AppCompatActivity {
             }
         });
     }
-/*
-    public void textPerson(String text) {
-
-        //error handling?
-        String address;
-        String textBody = (whatToText.getString(whatToText.getString("last_button_pressed")));
-        String scAddress = null;
-        PendingIntent sentIntent = null;
-        PendingIntent deliveryIntent = null;
-
-        String[] numbers = whoToText.getStringArray(text);
-        int lengthOfArray = numbers.length;
-
-        for (int i = 0; i < lengthOfArray; i++) {
-            address = numbers[i];
-
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(address, scAddress, textBody, sentIntent, deliveryIntent);
-
-            Toast.makeText(ChooseContactsActivity.this, whatToText.getString(whatToText.getString("last_button_pressed")) + " was sent to ", Toast.LENGTH_LONG).show();
-        }
-
-    }
-    */
 
     public void textPeople(String text) {
         String textBody = (whatToText.getString(whatToText.getString("last_button_pressed")));

@@ -142,13 +142,17 @@ public class ChangeButtonsActivity extends AppCompatActivity {
     }
 
     public void addNewButton() {
+        //get the text the user typed in using getText()
         String buttonName = setNewButton.getText().toString();
         int button = 0;
+        //loop through the buttons
         while (button <= 3) {
+            //check if the button has already been set to a text
             if (buttons[button].getText().toString() == "") {
                 if(button == 3) {
                     saveNewButton.setEnabled(false);
                 }
+                //if the button is not set yet, set it to the text you got from the user
                 buttons[button].setText(buttonName);
                 button = 100;
             }
