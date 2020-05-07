@@ -199,6 +199,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
         }
         groups[3].setText("");
         saveNewGroup.setEnabled(true);
+
     }
 
     public void addNewGroup() {

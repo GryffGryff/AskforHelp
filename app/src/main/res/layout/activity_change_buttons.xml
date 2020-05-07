@@ -28,7 +28,8 @@
         android:layout_marginLeft="20dp"
         android:gravity="center"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="#000"/>
 
 
     <Button
@@ -50,7 +51,8 @@
         android:layout_marginLeft="20dp"
         android:gravity="center"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="#000"/>
 
 
     <Button
@@ -72,7 +74,8 @@
         android:layout_marginLeft="20dp"
         android:gravity="center"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="#000"/>
 
 
     <Button
@@ -93,7 +96,8 @@
         android:layout_marginLeft="20dp"
         android:gravity="center"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="#000"/>
 
     <Button
         android:id="@+id/deleteFourthButton"
