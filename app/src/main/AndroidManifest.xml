@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChangeContactsActivity"></activity>
+        <activity android:name=".InfoActivity"></activity>
+        <activity android:name=".ChangeContactsActivity" />
         <activity android:name=".ChangeButtonsActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ChooseContactsActivity" />

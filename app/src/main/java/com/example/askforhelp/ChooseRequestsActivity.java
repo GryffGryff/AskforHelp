@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -35,7 +34,6 @@ public class ChooseRequestsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_requests);
-        Toast.makeText(ChooseRequestsActivity.this, "onCreate()", Toast.LENGTH_LONG).show();
         setVariables();
         setNewButtonNames();
         addRequestsToBundle();
@@ -45,7 +43,6 @@ public class ChooseRequestsActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        Toast.makeText(ChooseRequestsActivity.this, "onResume()", Toast.LENGTH_LONG).show();
         setNewButtonNames();
         addRequestsToBundle();
     }
@@ -135,7 +132,6 @@ public class ChooseRequestsActivity extends AppCompatActivity {
             onRequestPermissionsResult(smsRequestCode, new String[] {Manifest.permission.SEND_SMS}, new int[] {PackageManager.PERMISSION_GRANTED});
         } else {
             //permission granted
-            //Toast.makeText(ChooseRequestsActivity.this, "permission already granted", Toast.LENGTH_LONG).show();
         }
         if(ContextCompat.checkSelfPermission(ChooseRequestsActivity.this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(ChooseRequestsActivity.this, new String[] {Manifest.permission.READ_CONTACTS}, contactsRequestCode);

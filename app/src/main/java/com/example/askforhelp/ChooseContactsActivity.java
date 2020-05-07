@@ -73,7 +73,6 @@ public class ChooseContactsActivity extends AppCompatActivity {
     public String getGPS() {
         try {
             Location gpsCoordinates = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            Toast.makeText(context, gpsCoordinates.getLatitude() + ", " + gpsCoordinates.getLongitude(), Toast.LENGTH_LONG).show();
             String location = gpsCoordinates.getLatitude() + "%2C" + gpsCoordinates.getLongitude();
             return location;
         } catch (SecurityException se) {
@@ -96,23 +95,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
             fourthCG.setText("");
         }
     }
-/*
-    public void addNumbersToBundle() {
-        try {
-            SharedPreferences sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
-            whoToText.putStringArray("first_group", (String[]) sharedPreferences.getStringSet("first_group_number", new HashSet<String>()).toArray());
-            whoToText.putStringArray("second_group", (String[]) sharedPreferences.getStringSet("second_group_number", new HashSet<String>()).toArray());
-            whoToText.putStringArray("third_group", (String[]) sharedPreferences.getStringSet("third_group_number", new HashSet<String>()).toArray());
-            whoToText.putStringArray("fourth_group", (String[]) sharedPreferences.getStringSet("fourth_group_number", new HashSet<String>()).toArray());
-        } catch (Exception e) {
-            whoToText.putStringArray("first_group", new String[] {""});
-            whoToText.putStringArray("second_group", new String[] {""});
-            whoToText.putStringArray("third_group", new String[] {""});
-            whoToText.putStringArray("fourth_group", new String[] {""});
-        }
-    }
 
- */
     public void addNumbersToBundle() {
         try{
             SharedPreferences sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
@@ -146,8 +129,6 @@ public class ChooseContactsActivity extends AppCompatActivity {
         firstCG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //sendText("first_group");
-                //textPerson("first_group");
                 textPeople("first_group");
             }
         });
@@ -155,7 +136,6 @@ public class ChooseContactsActivity extends AppCompatActivity {
         secondCG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //textPerson("second_group");
                 textPeople("second_group");
             }
         });
@@ -163,7 +143,6 @@ public class ChooseContactsActivity extends AppCompatActivity {
         thirdCG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //textPerson("third_group");
                 textPeople("third_group");
             }
         });
@@ -171,7 +150,6 @@ public class ChooseContactsActivity extends AppCompatActivity {
         fourthCG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //textPerson("fourth_group");
                 textPeople("fourth_group");
             }
         });
@@ -197,6 +175,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
             startActivity(sendIntent);
         } catch (Exception e) {
             //sending text failed
+            Toast.makeText(context, "Text did not send due to error", Toast.LENGTH_LONG).show();
         }
     }
 }

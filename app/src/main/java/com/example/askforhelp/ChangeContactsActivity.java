@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,7 +49,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
     List<String> fourthGroupIds = new ArrayList<>();
 
     List<ContactResult> contactResults = new ArrayList<>();
-    Set<String> pNumbers = new HashSet<String>();
+    Set<String> pNumbers = new HashSet<>();
     Set<String> contactIds = new HashSet<>();
 
     SharedPreferences sharedPreferences;
@@ -124,7 +122,6 @@ public class ChangeContactsActivity extends AppCompatActivity {
         firstGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //pickNewContact(1);
                 pickNewContacts(1);
             }
         });
@@ -132,7 +129,6 @@ public class ChangeContactsActivity extends AppCompatActivity {
         secondGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //pickNewContact(2);
                 pickNewContacts(2);
             }
         });
@@ -140,7 +136,6 @@ public class ChangeContactsActivity extends AppCompatActivity {
         thirdGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //pickNewContact(3);
                 pickNewContacts(3);
             }
         });
@@ -148,7 +143,6 @@ public class ChangeContactsActivity extends AppCompatActivity {
         fourthGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //pickNewContact(4);
                 pickNewContacts(4);
             }
         });
@@ -238,9 +232,6 @@ public class ChangeContactsActivity extends AppCompatActivity {
             String[] sIds = makeIdArray(fourthGroupIds.toArray());
             new MultiContactPicker.Builder(ChangeContactsActivity.this).limitToColumn(LimitColumn.PHONE).setSelectedContacts(sIds).showPickerForResult(CONTACT_PICKER_REQUEST);
         }
-        /*
-        new MultiContactPicker.Builder(ChangeContactsActivity.this).limitToColumn(LimitColumn.PHONE).setSelectedContacts("455", "451", "460", "476").showPickerForResult(CONTACT_PICKER_REQUEST);
-    */
     }
 
     public String[] makeIdArray(Object[] ids) {
@@ -278,7 +269,6 @@ public class ChangeContactsActivity extends AppCompatActivity {
                }
            }
            pNumbers.add(mobile);
-           Log.e("ChangeContactsActivity", "1st number is: " + mobile);
         }
         setNewNumber();
     }
@@ -302,11 +292,11 @@ public class ChangeContactsActivity extends AppCompatActivity {
                 editor.putStringSet("fourth_group_number", pNumbers);
                 editor.putStringSet("fourth_group_ids", contactIds);
             } else {
-                Toast.makeText(context, "number did not get added to any group", Toast.LENGTH_LONG).show();
+                //number did not get added to any group
             }
             editor.apply();
         } catch (Exception e) {
-            Toast.makeText(context, "editing shared preferences file failed", Toast.LENGTH_LONG).show();
+            //editing shared preferences file failed
         }
     }
 
@@ -320,7 +310,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
             editor.putString("fourth_group", fourthGroup.getText().toString());
             editor.apply();
         } catch (Exception e) {
-            Toast.makeText(context, "editing shared preferences file failed", Toast.LENGTH_LONG).show();
+            //editing shared preferences file failed
         }
     }
 }

@@ -8,12 +8,24 @@
     tools:context=".ChangeButtonsActivity">
 
     <TextView
+        android:id="@+id/changeButtonsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Edit what to text"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="45sp"
+        android:textColor="#000"/>
+
+    <TextView
         android:id="@+id/firstButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/secondButton"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="100dp"
+        android:layout_marginLeft="20dp"
         android:gravity="center"
         android:textSize="25sp"
         android:textStyle="bold" />
@@ -35,6 +47,7 @@
         android:layout_above="@+id/thirdButton"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="100dp"
+        android:layout_marginLeft="20dp"
         android:gravity="center"
         android:textSize="25sp"
         android:textStyle="bold" />
@@ -56,9 +69,10 @@
         android:layout_above="@+id/fourthButton"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="100dp"
+        android:layout_marginLeft="20dp"
         android:gravity="center"
         android:textSize="25sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
 
     <Button
@@ -76,6 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginRight="100dp"
+        android:layout_marginLeft="20dp"
         android:gravity="center"
         android:textSize="25sp"
         android:textStyle="bold" />

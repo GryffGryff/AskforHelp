@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -171,7 +170,7 @@ public class ChangeButtonsActivity extends AppCompatActivity {
             editor.putString("fourth_text", fourthButton.getText().toString());
             editor.apply();
         } catch (Exception e) {
-            Toast.makeText(context, "editing shared preferences file failed", Toast.LENGTH_LONG).show();
+            //editing shared preferences file failed
         }
     }
 }
