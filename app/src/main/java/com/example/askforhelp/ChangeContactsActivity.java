@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -151,6 +152,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 bumpUpNames(0);
+                deleteIds("first_group_ids");
             }
         });
 
@@ -158,6 +160,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 bumpUpNames(1);
+                deleteIds("second_group_ids");
             }
         });
 
@@ -165,6 +168,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 bumpUpNames(2);
+                deleteIds("third_group_ids");
             }
         });
 
@@ -172,6 +176,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 bumpUpNames(3);
+                deleteIds("fourth_group_ids");
             }
         });
 
@@ -200,6 +205,18 @@ public class ChangeContactsActivity extends AppCompatActivity {
         groups[3].setText("");
         saveNewGroup.setEnabled(true);
 
+    }
+
+    public void deleteIds(String idGroup) {
+        try{
+            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putStringSet(idGroup, new HashSet<String>());
+            editor.apply();
+        } catch (Exception e) {
+            //failed to edit shared preferences file
+            Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void addNewGroup() {
