@@ -44,6 +44,8 @@ public class ChangeContactsActivity extends AppCompatActivity {
 
     EditText setNewGroup;
 
+    List[] ids = new List[4];
+
     List<String> firstGroupIds = new ArrayList<>();
     List<String> secondGroupIds = new ArrayList<>();
     List<String> thirdGroupIds = new ArrayList<>();
@@ -84,11 +86,17 @@ public class ChangeContactsActivity extends AppCompatActivity {
         home = findViewById(R.id.homeButtonContacts);
 
         context = ChangeContactsActivity.this;
+
+        try {
+            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
+        } catch (Exception e) {
+            //failed to edit shared preferences file
+            Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void setGroupNamesAndIds() {
         try {
-            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             firstGroup.setText(sharedPreferences.getString("first_group", ""));
             secondGroup.setText(sharedPreferences.getString("second_group", ""));
             thirdGroup.setText(sharedPreferences.getString("third_group", ""));
@@ -117,6 +125,11 @@ public class ChangeContactsActivity extends AppCompatActivity {
         groups[1] = secondGroup;
         groups[2] = thirdGroup;
         groups[3] = fourthGroup;
+
+        ids[0] = firstGroupIds;
+        ids[1] = secondGroupIds;
+        ids[2] = thirdGroupIds;
+        ids[3] = fourthGroupIds;
     }
 
     public void setClickListener() {
@@ -153,7 +166,6 @@ public class ChangeContactsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 bumpUpNames(0);
                 deleteIds("first_group_ids");
-                firstGroupIds.clear();
             }
         });
 
@@ -162,7 +174,6 @@ public class ChangeContactsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 bumpUpNames(1);
                 deleteIds("second_group_ids");
-                secondGroupIds.clear();
             }
         });
 
@@ -171,7 +182,6 @@ public class ChangeContactsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 bumpUpNames(2);
                 deleteIds("third_group_ids");
-                thirdGroupIds.clear();
             }
         });
 
@@ -180,7 +190,6 @@ public class ChangeContactsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 bumpUpNames(3);
                 deleteIds("fourth_group_ids");
-                fourthGroupIds.clear();
             }
         });
 
@@ -204,16 +213,18 @@ public class ChangeContactsActivity extends AppCompatActivity {
     public void bumpUpNames(int numGroups) {
         while (numGroups < 3) {
             groups[numGroups].setText(groups[numGroups+1].getText().toString());
+            ids[numGroups].clear();
+            ids[numGroups].addAll(ids[numGroups+1]);
             numGroups++;
         }
         groups[3].setText("");
+        ids[3].clear();
         saveNewGroup.setEnabled(true);
 
     }
 
     public void deleteIds(String idGroup) {
         try{
-            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putStringSet(idGroup, new HashSet<String>());
             editor.apply();
@@ -268,6 +279,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == CONTACT_PICKER_REQUEST) {
             if(resultCode == RESULT_OK) {
+                contactResults.clear();
                 contactResults.addAll(MultiContactPicker.obtainResult(data));
                 printOutResults();
             }
@@ -277,6 +289,8 @@ public class ChangeContactsActivity extends AppCompatActivity {
 
     public void printOutResults() {
         ListIterator listIterator = contactResults.listIterator();
+        pNumbers.clear();
+        contactIds.clear();
         while (listIterator.hasNext()) {
            ContactResult contactResult =  (ContactResult) listIterator.next();
            contactIds.add(contactResult.getContactID());
@@ -292,39 +306,46 @@ public class ChangeContactsActivity extends AppCompatActivity {
            }
            pNumbers.add(mobile);
         }
-        setNewNumber();
+        setNewNumbers();
     }
 
 
 
-    public void setNewNumber() {
+    public void setNewNumbers() {
         try {
-            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             if (whichGroup == 1) {
                 editor.putStringSet("first_group_number", pNumbers);
                 editor.putStringSet("first_group_ids", contactIds);
+                firstGroupIds.clear();
+                firstGroupIds.addAll(contactIds);
             } else if (whichGroup == 2) {
                 editor.putStringSet("second_group_number", pNumbers);
                 editor.putStringSet("second_group_ids", contactIds);
+                secondGroupIds.clear();
+                secondGroupIds.addAll(contactIds);
             } else if (whichGroup == 3) {
                 editor.putStringSet("third_group_number", pNumbers);
                 editor.putStringSet("third_group_ids", contactIds);
+                thirdGroupIds.clear();
+                thirdGroupIds.addAll(contactIds);
             } else if (whichGroup == 4) {
                 editor.putStringSet("fourth_group_number", pNumbers);
                 editor.putStringSet("fourth_group_ids", contactIds);
+                fourthGroupIds.clear();
+                fourthGroupIds.addAll(contactIds);
             } else {
                 //number did not get added to any group
             }
             editor.apply();
         } catch (Exception e) {
-            //editing shared preferences file failed
+            //failed to edit shared preferences file
+            Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
         }
     }
 
     public void setNewGroupNames() {
         try {
-            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("first_group", firstGroup.getText().toString());
             editor.putString("second_group", secondGroup.getText().toString());
@@ -332,8 +353,15 @@ public class ChangeContactsActivity extends AppCompatActivity {
             editor.putString("fourth_group", fourthGroup.getText().toString());
             editor.apply();
         } catch (Exception e) {
-            //editing shared preferences file failed
+            //failed to edit shared preferences file
+            Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
         }
     }
 }
+
+/* what works and what doesn't work
+local editing of contactIdGroups works
+need to get phone numbers to bump of when delete button pressed
+ */
+
 

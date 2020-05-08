@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -68,11 +69,16 @@ public class ChangeButtonsActivity extends AppCompatActivity {
         homeButton = findViewById(R.id.homeButtonRequests);
 
         context = ChangeButtonsActivity.this;
+        try {
+            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
+        } catch (Exception e) {
+            //failed to edit shared preferences file
+            Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void setButtonNames() {
         try {
-            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             firstButton.setText(sharedPreferences.getString("first_text", ""));
             secondButton.setText(sharedPreferences.getString("second_text", ""));
             thirdButton.setText(sharedPreferences.getString("third_text", ""));
@@ -162,7 +168,6 @@ public class ChangeButtonsActivity extends AppCompatActivity {
 
     public void setNewButtonNames() {
         try {
-            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("first_text", firstButton.getText().toString());
             editor.putString("second_text", secondButton.getText().toString());
@@ -170,7 +175,8 @@ public class ChangeButtonsActivity extends AppCompatActivity {
             editor.putString("fourth_text", fourthButton.getText().toString());
             editor.apply();
         } catch (Exception e) {
-            //editing shared preferences file failed
+            //failed to edit shared preferences file
+            Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
         }
     }
 }

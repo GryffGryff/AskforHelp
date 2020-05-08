@@ -47,6 +47,10 @@ public class ChooseRequestsActivity extends AppCompatActivity {
         addRequestsToBundle();
     }
 
+    public void checkFirstTime() {
+
+    }
+
     public void setVariables() {
         firstButton = findViewById(R.id.firstRequest);
         secondButton = findViewById(R.id.secondRequest);

@@ -32,6 +32,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
     LocationManager locationManager;
     LocationProvider locationProvider;
     boolean gpsEnabled;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,12 @@ public class ChooseContactsActivity extends AppCompatActivity {
         back = findViewById(R.id.backButtonOne);
         whatToText = getIntent().getExtras();
         context = ChooseContactsActivity.this;
+        try {
+            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
+        } catch (Exception e) {
+            //failed to edit shared preferences file
+            Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
+        }
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
     }
@@ -83,7 +90,6 @@ public class ChooseContactsActivity extends AppCompatActivity {
 
     public void setNewGroupNames() {
         try {
-            SharedPreferences sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             firstCG.setText(sharedPreferences.getString("first_group", ""));
             secondCG.setText(sharedPreferences.getString("second_group", ""));
             thirdCG.setText(sharedPreferences.getString("third_group", ""));
@@ -98,7 +104,6 @@ public class ChooseContactsActivity extends AppCompatActivity {
 
     public void addNumbersToBundle() {
         try{
-            SharedPreferences sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             whoToText.putString("first_group", createPhoneGroups(sharedPreferences.getStringSet("first_group_number", new HashSet<String>())));
             whoToText.putString("second_group", createPhoneGroups(sharedPreferences.getStringSet("second_group_number", new HashSet<String>())));
             whoToText.putString("third_group", createPhoneGroups(sharedPreferences.getStringSet("third_group_number", new HashSet<String>())));
