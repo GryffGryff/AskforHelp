@@ -51,9 +51,18 @@ public class ChangeContactsActivity extends AppCompatActivity {
     List<String> thirdGroupIds = new ArrayList<>();
     List<String> fourthGroupIds = new ArrayList<>();
 
+    List[] numbers = new List[4];
+
+    List<String> firstGroupNumbers = new ArrayList<>();
+    List<String> secondGroupNumbers = new ArrayList<>();
+    List<String> thirdGroupNumbers = new ArrayList<>();
+    List<String> fourthGroupNumbers = new ArrayList<>();
+
     List<ContactResult> contactResults = new ArrayList<>();
     Set<String> pNumbers = new HashSet<>();
     Set<String> contactIds = new HashSet<>();
+
+
 
     SharedPreferences sharedPreferences;
     Context context;
@@ -107,6 +116,10 @@ public class ChangeContactsActivity extends AppCompatActivity {
             thirdGroupIds.addAll(sharedPreferences.getStringSet("third_group_ids", new HashSet<String>()));
             fourthGroupIds.addAll(sharedPreferences.getStringSet("fourth_group_ids", new HashSet<String>()));
 
+            firstGroupNumbers.addAll(sharedPreferences.getStringSet("first_group_number", new HashSet<String>()));
+            secondGroupNumbers.addAll(sharedPreferences.getStringSet("second_group_number", new HashSet<String>()));
+            thirdGroupNumbers.addAll(sharedPreferences.getStringSet("third_group_number", new HashSet<String>()));
+            fourthGroupNumbers.addAll(sharedPreferences.getStringSet("fourth_group_number", new HashSet<String>()));
         } catch (Exception e) {
             firstGroup.setText("");
             secondGroup.setText("");
@@ -117,6 +130,11 @@ public class ChangeContactsActivity extends AppCompatActivity {
             secondGroupIds.clear();
             thirdGroupIds.clear();
             fourthGroupIds.clear();
+
+            firstGroupNumbers.clear();
+            secondGroupNumbers.clear();
+            thirdGroupNumbers.clear();
+            fourthGroupNumbers.clear();
         }
     }
 
@@ -130,6 +148,11 @@ public class ChangeContactsActivity extends AppCompatActivity {
         ids[1] = secondGroupIds;
         ids[2] = thirdGroupIds;
         ids[3] = fourthGroupIds;
+
+        numbers[0] = firstGroupNumbers;
+        numbers[1] = secondGroupNumbers;
+        numbers[2] = thirdGroupNumbers;
+        numbers[3] = fourthGroupNumbers;
     }
 
     public void setClickListener() {
@@ -204,7 +227,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ChangeContactsActivity.this, ChooseRequestsActivity.class);
-                setNewGroupNames();
+                setNewInformation();
                 ChangeContactsActivity.this.startActivity(intent);
             }
         });
@@ -215,10 +238,13 @@ public class ChangeContactsActivity extends AppCompatActivity {
             groups[numGroups].setText(groups[numGroups+1].getText().toString());
             ids[numGroups].clear();
             ids[numGroups].addAll(ids[numGroups+1]);
+            numbers[numGroups].clear();
+            numbers[numGroups].addAll(numbers[numGroups+1]);
             numGroups++;
         }
         groups[3].setText("");
         ids[3].clear();
+        numbers[3].clear();
         saveNewGroup.setEnabled(true);
 
     }
@@ -281,13 +307,13 @@ public class ChangeContactsActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 contactResults.clear();
                 contactResults.addAll(MultiContactPicker.obtainResult(data));
-                printOutResults();
+                getResultsFromContactSelection();
             }
         }
     }
 
 
-    public void printOutResults() {
+    public void getResultsFromContactSelection() {
         ListIterator listIterator = contactResults.listIterator();
         pNumbers.clear();
         contactIds.clear();
@@ -309,31 +335,33 @@ public class ChangeContactsActivity extends AppCompatActivity {
         setNewNumbers();
     }
 
-
-
     public void setNewNumbers() {
         try {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             if (whichGroup == 1) {
-                editor.putStringSet("first_group_number", pNumbers);
                 editor.putStringSet("first_group_ids", contactIds);
                 firstGroupIds.clear();
                 firstGroupIds.addAll(contactIds);
+                firstGroupNumbers.clear();
+                firstGroupNumbers.addAll(pNumbers);
             } else if (whichGroup == 2) {
-                editor.putStringSet("second_group_number", pNumbers);
                 editor.putStringSet("second_group_ids", contactIds);
                 secondGroupIds.clear();
                 secondGroupIds.addAll(contactIds);
+                secondGroupNumbers.clear();
+                secondGroupNumbers.addAll(pNumbers);
             } else if (whichGroup == 3) {
-                editor.putStringSet("third_group_number", pNumbers);
                 editor.putStringSet("third_group_ids", contactIds);
                 thirdGroupIds.clear();
                 thirdGroupIds.addAll(contactIds);
+                thirdGroupNumbers.clear();
+                thirdGroupNumbers.addAll(pNumbers);
             } else if (whichGroup == 4) {
-                editor.putStringSet("fourth_group_number", pNumbers);
                 editor.putStringSet("fourth_group_ids", contactIds);
                 fourthGroupIds.clear();
                 fourthGroupIds.addAll(contactIds);
+                fourthGroupNumbers.clear();
+                fourthGroupNumbers.addAll(pNumbers);
             } else {
                 //number did not get added to any group
             }
@@ -344,13 +372,33 @@ public class ChangeContactsActivity extends AppCompatActivity {
         }
     }
 
-    public void setNewGroupNames() {
+    public Set<String> createSetFromList(List<String> listToChange) {
+        Set<String> set = new HashSet<>();
+        ListIterator listIterator = listToChange.listIterator();
+        while(listIterator.hasNext()) {
+            set.add(listIterator.next().toString());
+        }
+        return set;
+    }
+
+    public void setNewInformation() {
         try {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("first_group", firstGroup.getText().toString());
             editor.putString("second_group", secondGroup.getText().toString());
             editor.putString("third_group", thirdGroup.getText().toString());
             editor.putString("fourth_group", fourthGroup.getText().toString());
+
+            editor.putStringSet("first_group_ids", createSetFromList(firstGroupIds));
+            editor.putStringSet("second_group_ids", createSetFromList(secondGroupIds));
+            editor.putStringSet("third_group_ids", createSetFromList(thirdGroupIds));
+            editor.putStringSet("fourth_group_ids", createSetFromList(fourthGroupIds));
+
+            editor.putStringSet("first_group_number", createSetFromList(firstGroupNumbers));
+            editor.putStringSet("second_group_number", createSetFromList(secondGroupNumbers));
+            editor.putStringSet("third_group_number", createSetFromList(thirdGroupNumbers));
+            editor.putStringSet("fourth_group_number", createSetFromList(fourthGroupNumbers));
+
             editor.apply();
         } catch (Exception e) {
             //failed to edit shared preferences file
@@ -358,10 +406,5 @@ public class ChangeContactsActivity extends AppCompatActivity {
         }
     }
 }
-
-/* what works and what doesn't work
-local editing of contactIdGroups works
-need to get phone numbers to bump of when delete button pressed
- */
 
 
