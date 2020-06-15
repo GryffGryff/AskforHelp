@@ -8,14 +8,17 @@
     tools:context=".ChooseRequestsActivity">
 
     <TextView
-        android:id="@+id/requestsPickTitle"
+        android:id="@+id/chooseRequestsTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:text="Choose a message to send"
         android:gravity="center"
-        android:textSize="30sp"
-        android:textStyle="bold|italic"
-        android:text="Choose Request"/>
+        android:textColor="#000"/>
 
     <Button
         android:id="@+id/firstRequest"
@@ -57,7 +60,7 @@
         android:layout_above="@+id/settings"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="60dp"
         android:textSize="25sp"
         android:textStyle="bold"
         android:background="#12ff89"/>

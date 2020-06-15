@@ -33,10 +33,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/changeButtons"
+        android:layout_marginBottom="15dp"
         android:textStyle="bold"
         android:textSize="25sp"
-
         android:text="set contacts and groups"/>
+
+    <Button
+        android:id="@+id/toAboutPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editContacts"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:text="about"/>
 
     <Button
         android:id="@+id/backButtonTwo"

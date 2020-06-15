@@ -8,6 +8,17 @@
     tools:context=".ChangeButtonsActivity">
 
     <TextView
+        android:id="@+id/changeButtonsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:text="Change Buttons"
+        android:gravity="center"
+        android:textColor="#000"/>
+
+    <TextView
         android:id="@+id/firstButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,7 +68,7 @@
         android:id="@+id/thirdButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/fourthButton"
+        android:layout_centerVertical="true"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="100dp"
         android:layout_marginLeft="20dp"
@@ -80,7 +91,7 @@
         android:id="@+id/fourthButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/thirdButton"
         android:layout_marginRight="100dp"
         android:layout_marginLeft="20dp"
         android:gravity="center"

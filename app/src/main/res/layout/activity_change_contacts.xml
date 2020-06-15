@@ -7,6 +7,17 @@
     android:layout_margin="20dp"
     tools:context=".ChangeContactsActivity">
 
+    <TextView
+        android:id="@+id/changeGroupsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:text="Change Groups and Numbers"
+        android:gravity="center"
+        android:textColor="#000"/>
+
     <Button
         android:id="@+id/firstGroup"
         android:layout_width="match_parent"
@@ -56,7 +67,7 @@
         android:id="@+id/thirdGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/fourthGroup"
+        android:layout_centerVertical="true"
         android:layout_marginRight="100dp"
         android:layout_marginBottom="5dp"
         android:gravity="center"
@@ -78,8 +89,8 @@
         android:id="@+id/fourthGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_marginRight="100dp"
+        android:layout_below="@+id/thirdGroup"
         android:gravity="center"
         android:textSize="25sp"
         android:textStyle="bold"

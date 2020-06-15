@@ -11,6 +11,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     Button changeButton;
     Button editReceivers;
+    Button aboutPage;
 
     Button backButton;
 
@@ -25,6 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
     public void setVariables() {
         changeButton = findViewById(R.id.changeButtons);
         editReceivers = findViewById(R.id.editContacts);
+        aboutPage = findViewById(R.id.toAboutPage);
 
         backButton = findViewById(R.id.backButtonTwo);
     }
@@ -42,6 +44,14 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SettingsActivity.this, ChangeContactsActivity.class);
+                SettingsActivity.this.startActivity(intent);
+            }
+        });
+
+        aboutPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingsActivity.this, InfoActivity.class);
                 SettingsActivity.this.startActivity(intent);
             }
         });
