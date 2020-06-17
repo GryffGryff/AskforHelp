@@ -4,38 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     tools:context=".InfoActivity">
 
-    <TextView
-        android:id="@+id/aboutLicense"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:textColor="#000"
-        android:text="     This app uses code from an outside library to select multiple contacts in the settings page. The library we used, MultiContactPicker, is licensed under the Apache License 2.0. Here is a link to the github repository of the code we used:" />
-    <TextView
-        android:id="@+id/link"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:textStyle="italic"
-        android:textColor="@color/azureColorPrimary"
-        android:linksClickable="true"
-        android:text="@string/link_to_github"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="hellow whats up w/ your thouwaoeusntheutasunthaoeuhoreuh"/>
-    <Button
-        android:id="@+id/buttonToLicense"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:textColor="#000"
-        android:text="Apache license"/>
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    </Space>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="16">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+        </Space>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="16">
+
+            <TextView
+                android:id="@+id/aboutLicense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="#000"
+                android:text="    This app uses code from an outside library to select multiple contacts in the settings page. The library we used, MultiContactPicker, is licensed under the Apache License 2.0. Here is a link to the github repository of the code we used:" />
+            <TextView
+                android:id="@+id/link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textStyle="italic"
+                android:textColor="@color/azureColorPrimary"
+                android:linksClickable="true"
+                android:text="@string/link_to_github"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="hellow whats up w/ your"/>
+            <Button
+                android:id="@+id/buttonToLicense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="#000"
+                android:text="Apache license"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+        </Space>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    </Space>
 
 </LinearLayout>

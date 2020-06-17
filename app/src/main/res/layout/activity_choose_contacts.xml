@@ -1,85 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     tools:context=".ChooseContactsActivity">
 
-    <TextView
-        android:id="@+id/chooseContactsTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:textStyle="bold"
-        android:textSize="40sp"
-        android:text="Choose a group to message"
-        android:gravity="center"
-        android:textColor="#000"/>
-
-    <Button
-        android:id="@+id/firstContactGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/secondContactGroup"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="25dp"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:background="#89ff12" />
-
-    <Button
-        android:id="@+id/secondContactGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/thirdContactGroup"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="25dp"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:background="#b9ff12"/>
-
-    <Button
-        android:id="@+id/thirdContactGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/fourthContactGroup"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="25dp"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:background="#e8ff12" />
-
-    <Button
-        android:id="@+id/fourthContactGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/backButtonOne"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="60dp"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:background="#ffb912"/>
-
-    <Button
-        android:id="@+id/backButtonOne"
+    <Space
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginEnd="30dp"
-        android:gravity="center"
-        android:background="@drawable/rounded_button_orange"
-        android:text="Home" />
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    </Space>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="16">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+        </Space>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="16">
+
+            <TextView
+                android:id="@+id/chooseContactsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="40sp"
+                android:text="Choose a group \n to message"
+                android:gravity="center"
+                android:textColor="#000"
+                android:layout_weight="5"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="5">
+
+                <Button
+                    android:id="@+id/firstContactGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:background="#ffb912"
+                    android:layout_weight="1"/>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                </Space>
+
+                <Button
+                    android:id="@+id/secondContactGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:background="#e8ff12"
+                    android:layout_weight="1"/>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                </Space>
+
+                <Button
+                    android:id="@+id/thirdContactGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:background="#b9ff12"
+                    android:layout_weight="1"/>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                </Space>
+
+                <Button
+                    android:id="@+id/fourthContactGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:background="#89ff12"
+                    android:layout_weight="1"/>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                </Space>
+
+            </LinearLayout>
+
+
+
+            <Button
+                android:id="@+id/backButtonOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button_green"
+                android:gravity="center"
+                android:layout_gravity="end"
+                android:text="Home"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+        </Space>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    </Space>
+
+</LinearLayout>
