@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -30,6 +31,9 @@ public class ChooseRequestsActivity extends AppCompatActivity {
 
     String[] savedButtonNames;
 
+    Context context;
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,7 @@ public class ChooseRequestsActivity extends AppCompatActivity {
         setNewButtonNames();
         addRequestsToBundle();
         getPermission();
+        checkFirstTime();
         setClickListener();
     }
 
@@ -48,7 +53,12 @@ public class ChooseRequestsActivity extends AppCompatActivity {
     }
 
     public void checkFirstTime() {
-
+        if (sharedPreferences.getBoolean("firstRequests", true)) {
+            Toast.makeText(context, "This is the first run. Go to settings to set up your app.", Toast.LENGTH_LONG);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("firstRequests", false);
+            editor.apply();
+        }
     }
 
     public void setVariables() {
@@ -58,12 +68,17 @@ public class ChooseRequestsActivity extends AppCompatActivity {
         fourthButton = findViewById(R.id.fourthRequest);
         settings = findViewById(R.id.settings);
         savedButtonNames = new String[4];
+        context = ChooseRequestsActivity.this;
+        try {
+            sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
+        } catch (Exception e) {
+            //failed to edit shared preferences file
+            Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void setNewButtonNames() {
         try {
-            Context context = ChooseRequestsActivity.this;
-            SharedPreferences sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             firstButton.setText(sharedPreferences.getString("first_text", ""));
             secondButton.setText(sharedPreferences.getString("second_text", ""));
             thirdButton.setText(sharedPreferences.getString("third_text", ""));
