@@ -97,7 +97,7 @@
                     android:background="@drawable/rounded_button_green"
                     android:layout_gravity="end"
                     android:gravity="center"
-                    android:text="Back"/>
+                    android:text="Home"/>
 
             </LinearLayout>
 

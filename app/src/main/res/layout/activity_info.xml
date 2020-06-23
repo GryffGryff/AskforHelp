@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1">
+
     </Space>
 
     <LinearLayout
@@ -22,7 +23,7 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="2">
         </Space>
 
         <LinearLayout
@@ -32,40 +33,55 @@
             android:layout_weight="16">
 
             <TextView
-                android:id="@+id/aboutLicense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
-                android:textColor="#000"
-                android:text="    This app uses code from an outside library to select multiple contacts in the settings page. The library we used, MultiContactPicker, is licensed under the Apache License 2.0. Here is a link to the github repository of the code we used:" />
+                android:text="   This app uses code from an outside library te select multiple contacts in the settings page. The library we used, MultiContactPicker, is licensed under the Apache License 2.0. Here is the link to the github repository of the code we used:"
+                android:textColor="#000" />
+
             <TextView
-                android:id="@+id/link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:textStyle="italic"
+                android:textSize="25sp"
                 android:textColor="@color/azureColorPrimary"
+                android:textStyle="italic"
                 android:linksClickable="true"
                 android:text="@string/link_to_github"/>
-            <TextView
+
+            <Space
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:text="hellow whats up w/ your"/>
+                android:layout_weight="2">
+            </Space>
+
             <Button
-                android:id="@+id/buttonToLicense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
                 android:textColor="#000"
-                android:text="Apache license"/>
+                android:text="Apache License" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3">
+            </Space>
+
+            <Button
+                android:id="@+id/infoBackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/rounded_button_green"
+                android:text="Home"
+                android:layout_gravity="end" />
 
         </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="2">
         </Space>
 
     </LinearLayout>
@@ -73,7 +89,7 @@
     <Space
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="1">
-    </Space>
+        android:layout_weight="1"/>
+
 
 </LinearLayout>
