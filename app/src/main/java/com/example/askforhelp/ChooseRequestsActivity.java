@@ -53,10 +53,10 @@ public class ChooseRequestsActivity extends AppCompatActivity {
     }
 
     public void checkFirstTime() {
-        if (sharedPreferences.getBoolean("firstRequests", true)) {
-            Toast.makeText(context, "This is the first run. Go to settings to set up your app.", Toast.LENGTH_LONG);
+        if (sharedPreferences.getBoolean("cat", true)) {
+            Toast.makeText(context, "This is the first run. YAY! Go to settings to set up your app.", Toast.LENGTH_LONG).show();
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("firstRequests", false);
+            editor.putBoolean("cat", false);
             editor.apply();
         }
     }
