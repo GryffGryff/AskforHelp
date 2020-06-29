@@ -42,6 +42,7 @@ public class ChangeButtonsActivity extends AppCompatActivity {
         setVariables();
         addButtonsToArray();
         setButtonNames();
+        checkFirstButton();
         setClickListener();
     }
 
@@ -74,6 +75,15 @@ public class ChangeButtonsActivity extends AppCompatActivity {
         } catch (Exception e) {
             //failed to edit shared preferences file
             Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void checkFirstButton() {
+        if(sharedPreferences.getBoolean("buttonsCheck", true)) {
+            //Toast w/ instructions
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("buttonsCheck", false);
+            editor.apply();
         }
     }
 

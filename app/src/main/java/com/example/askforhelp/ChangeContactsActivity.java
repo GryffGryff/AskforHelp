@@ -75,6 +75,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
         setVariables();
         addGroupsToArray();
         setGroupNamesAndIds();
+        checkFirstContact();
         setClickListener();
     }
 
@@ -101,6 +102,15 @@ public class ChangeContactsActivity extends AppCompatActivity {
         } catch (Exception e) {
             //failed to edit shared preferences file
             Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void checkFirstContact() {
+        if(sharedPreferences.getBoolean("contactsCheck", true)) {
+            //toast to give instructions
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("contactsCheck", false);
+            editor.apply();
         }
     }
 
