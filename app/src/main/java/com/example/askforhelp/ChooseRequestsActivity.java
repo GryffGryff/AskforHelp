@@ -42,7 +42,6 @@ public class ChooseRequestsActivity extends AppCompatActivity {
         setNewButtonNames();
         addRequestsToBundle();
         getPermission();
-        checkFirstTime();
         setClickListener();
     }
 
@@ -50,13 +49,14 @@ public class ChooseRequestsActivity extends AppCompatActivity {
         super.onResume();
         setNewButtonNames();
         addRequestsToBundle();
+        checkFirstTime();
     }
 
     public void checkFirstTime() {
-        if (sharedPreferences.getBoolean("cat", true)) {
+        if (sharedPreferences.getBoolean("requestsCheck", true)) {
             Toast.makeText(context, "This is the first run. YAY! Go to settings to set up your app.", Toast.LENGTH_LONG).show();
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("cat", false);
+            editor.putBoolean("requestsCheck", false);
             editor.apply();
         }
     }

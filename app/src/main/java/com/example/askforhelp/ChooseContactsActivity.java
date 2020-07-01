@@ -48,6 +48,11 @@ public class ChooseContactsActivity extends AppCompatActivity {
         setClickListener();
     }
 
+    protected void onResume() {
+        super.onResume();
+        checkFirstMessage();
+    }
+
     public void setVariables() {
         firstCG = findViewById(R.id.firstContactGroup);
         secondCG = findViewById(R.id.secondContactGroup);
@@ -66,6 +71,14 @@ public class ChooseContactsActivity extends AppCompatActivity {
         if(locationOn) {
             locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
             locationProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
+        }
+    }
+
+    public void checkFirstMessage() {
+        if(sharedPreferences.getBoolean("firstSendCheck", true)) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("firstSendCheck", false);
+            editor.apply();
         }
     }
 

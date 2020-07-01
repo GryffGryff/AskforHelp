@@ -42,8 +42,12 @@ public class ChangeButtonsActivity extends AppCompatActivity {
         setVariables();
         addButtonsToArray();
         setButtonNames();
-        checkFirstButton();
         setClickListener();
+    }
+
+    protected void onResume() {
+        super.onResume();
+        checkFirstButton();
     }
 
     public void addButtonsToArray() {
@@ -80,7 +84,7 @@ public class ChangeButtonsActivity extends AppCompatActivity {
 
     public void checkFirstButton() {
         if(sharedPreferences.getBoolean("buttonsCheck", true)) {
-            //Toast w/ instructions
+            Toast.makeText(context, "Here you can preset your messages. Enter whatever you want the preset message to be down below and press save button. You can use the small buttons on the right to delete an already preset message.", Toast.LENGTH_LONG).show();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("buttonsCheck", false);
             editor.apply();

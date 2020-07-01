@@ -35,9 +35,14 @@ public class SettingsActivity extends AppCompatActivity {
         setClickListener();
     }
 
+    protected void onResume() {
+        super.onResume();
+        checkFirstOpen();
+    }
+
     public void checkFirstOpen() {
         if(sharedPreferences.getBoolean("settingsCheck", true)) {
-            //have toast to give instructions
+            Toast.makeText(context, "Here you can set up your messages and contacts for the app. You can also turn location on and off. If it's on, a link to your location will be sent with each message.", Toast.LENGTH_LONG).show();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("settingsCheck", false);
             editor.apply();
@@ -98,7 +103,13 @@ public class SettingsActivity extends AppCompatActivity {
         resetTutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //reset the variables that say wether its the first time or not
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("requestsCheck", true);
+                editor.putBoolean("firstSendCheck", true);
+                editor.putBoolean("buttonsCheck", true);
+                editor.putBoolean("contactsCheck", true);
+                editor.putBoolean("settingsCheck", true);
+                editor.apply();
                 //add toast saying: tutorial has been reset -- go to home page to start
             }
         });

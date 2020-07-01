@@ -75,8 +75,12 @@ public class ChangeContactsActivity extends AppCompatActivity {
         setVariables();
         addGroupsToArray();
         setGroupNamesAndIds();
-        checkFirstContact();
         setClickListener();
+    }
+
+    protected void onResume() {
+        super.onResume();
+        checkFirstContact();
     }
 
     public void setVariables() {
@@ -107,7 +111,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
 
     public void checkFirstContact() {
         if(sharedPreferences.getBoolean("contactsCheck", true)) {
-            //toast to give instructions
+            Toast.makeText(context, "This is where you set up groups of contacts to text. To name the groups, type your chosen name down below and press the save group button. To add or remove contacts from a group, press on the button with that groups name on it. The small buttons on the right let you delete a group.", Toast.LENGTH_LONG).show();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("contactsCheck", false);
             editor.apply();
