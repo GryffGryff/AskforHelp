@@ -33,13 +33,16 @@ public class ChooseContactsActivity extends AppCompatActivity {
     LocationProvider locationProvider;
     boolean gpsEnabled;
     SharedPreferences sharedPreferences;
+    boolean locationOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_contacts);
         setVariables();
-        checkGPSEnabled();
+        if(locationOn) {
+            checkGPSEnabled();
+        }
         setNewGroupNames();
         addNumbersToBundle();
         setClickListener();
@@ -59,8 +62,11 @@ public class ChooseContactsActivity extends AppCompatActivity {
             //failed to edit shared preferences file
             Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
         }
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        locationProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
+        locationOn = sharedPreferences.getBoolean("locationOn", true);
+        if(locationOn) {
+            locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+            locationProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
+        }
     }
 
     public void checkGPSEnabled() {
@@ -171,11 +177,18 @@ public class ChooseContactsActivity extends AppCompatActivity {
     public void textPeople(String text) {
         String textBody = (whatToText.getString(whatToText.getString("last_button_pressed")));
         String numbers = whoToText.getString(text);
-        String mapLink = "https://maps.app.goo.gl/?link=https://www.google.com/maps/place/" + getGPS();
+        String mapLink = "";
+        if(locationOn) {
+            mapLink = "https://maps.app.goo.gl/?link=https://www.google.com/maps/place/" + getGPS();
+        }
         try {
             Intent sendIntent = new Intent(Intent.ACTION_VIEW);
             sendIntent.setType("vnd.android-dir/mms-sms");
-            sendIntent.putExtra("sms_body", textBody + " " + mapLink);
+            if(locationOn) {
+                sendIntent.putExtra("sms_body", textBody + " " + mapLink);
+            } else {
+                sendIntent.putExtra("sms_body", textBody);
+            }
             sendIntent.putExtra("address", numbers);
             startActivity(sendIntent);
         } catch (Exception e) {

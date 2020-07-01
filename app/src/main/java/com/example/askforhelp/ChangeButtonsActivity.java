@@ -26,7 +26,7 @@ public class ChangeButtonsActivity extends AppCompatActivity {
     Button deleteFourthButton;
     Button saveNewButton;
 
-    Button homeButton;
+    Button settingsButton;
 
 
     EditText setNewButton;
@@ -67,7 +67,7 @@ public class ChangeButtonsActivity extends AppCompatActivity {
         saveNewButton = findViewById(R.id.saveNewButton);
         setNewButton = findViewById(R.id.setNewButton);
 
-        homeButton = findViewById(R.id.homeButtonRequests);
+        settingsButton = findViewById(R.id.settingsButtonRequests);
 
         context = ChangeButtonsActivity.this;
         try {
@@ -137,10 +137,10 @@ public class ChangeButtonsActivity extends AppCompatActivity {
             }
         });
 
-        homeButton.setOnClickListener(new View.OnClickListener() {
+        settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ChangeButtonsActivity.this, ChooseRequestsActivity.class);
+                Intent intent = new Intent(ChangeButtonsActivity.this, SettingsActivity.class);
                 setNewButtonNames();
                 ChangeButtonsActivity.this.startActivity(intent);
             }

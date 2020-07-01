@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="25sp"
-                    android:text="reset tutorial"/>
+                    android:text="restart tutorial"/>
 
                 <Space
                     android:layout_width="match_parent"
@@ -97,8 +97,10 @@
                     android:textStyle="bold"
                     android:textColor="#000"
                     android:textSize="25sp"
-                    android:textOff="Location off"
-                    android:textOn="Location on"/>
+                    android:checked="true"
+                    android:text=" Location On/Off"
+                    android:textOff="OFF"
+                    android:textOn="ON"/>
 
                 <Space
                     android:layout_width="match_parent"

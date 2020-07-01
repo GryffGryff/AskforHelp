@@ -40,7 +40,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
     Button deleteFourthGroup;
     Button saveNewGroup;
 
-    Button home;
+    Button settings;
 
     EditText setNewGroup;
 
@@ -93,7 +93,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
         saveNewGroup = findViewById(R.id.saveNewGroup);
         setNewGroup = findViewById(R.id.setNewGroup);
 
-        home = findViewById(R.id.homeButtonContacts);
+        settings = findViewById(R.id.settingsButtonContacts);
 
         context = ChangeContactsActivity.this;
 
@@ -233,10 +233,10 @@ public class ChangeContactsActivity extends AppCompatActivity {
             }
         });
 
-        home.setOnClickListener(new View.OnClickListener() {
+        settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ChangeContactsActivity.this, ChooseRequestsActivity.class);
+                Intent intent = new Intent(ChangeContactsActivity.this, SettingsActivity.class);
                 setNewInformation();
                 ChangeContactsActivity.this.startActivity(intent);
             }

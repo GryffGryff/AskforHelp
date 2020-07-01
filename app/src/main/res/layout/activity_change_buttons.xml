@@ -233,13 +233,13 @@
                 </Space>
 
                 <Button
-                    android:id="@+id/homeButtonRequests"
+                    android:id="@+id/settingsButtonRequests"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:gravity="center"
                     android:background="@drawable/rounded_button_green"
-                    android:text="Home"/>
+                    android:text="Settings"/>
 
             </LinearLayout>
 

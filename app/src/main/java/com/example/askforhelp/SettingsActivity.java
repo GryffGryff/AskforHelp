@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -79,6 +80,13 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        location.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                setLocation();
+            }
+        });
+
         aboutPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +110,17 @@ public class SettingsActivity extends AppCompatActivity {
                 SettingsActivity.this.startActivity(intent);
             }
         });
+    }
+
+    public void setLocation() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if(location.isChecked()) {
+            editor.putBoolean("locationOn", true);
+            editor.apply();
+        } else {
+            editor.putBoolean("locationOn", false);
+            editor.apply();
+        }
     }
 }
 
