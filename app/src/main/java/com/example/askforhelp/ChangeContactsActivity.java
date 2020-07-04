@@ -1,6 +1,7 @@
 package com.example.askforhelp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.wafflecopter.multicontactpicker.ContactResult;
@@ -111,7 +113,16 @@ public class ChangeContactsActivity extends AppCompatActivity {
 
     public void checkFirstContact() {
         if(sharedPreferences.getBoolean("contactsCheck", true)) {
-            Toast.makeText(context, "This is where you set up groups of contacts to text. To name the groups, type your chosen name down below and press the save group button. To add or remove contacts from a group, press on the button with that groups name on it. The small buttons on the right let you delete a group.", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder contactsDialogBuilder = new AlertDialog.Builder(context);
+            contactsDialogBuilder.setMessage("This is where you set up groups of contacts to text. To name the group, type the name down below and press the save new group button. To add or remove contacts from a group, press on the button with that group's name on it. The small buttons on the right let you delete a group.");
+            contactsDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    //user read message
+                }
+            });
+            AlertDialog contactsDialog = contactsDialogBuilder.create();
+            contactsDialog.show();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("contactsCheck", false);
             editor.apply();

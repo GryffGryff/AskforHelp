@@ -50,7 +50,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        checkFirstMessage();
+        //checkFirstMessage();
     }
 
     public void setVariables() {

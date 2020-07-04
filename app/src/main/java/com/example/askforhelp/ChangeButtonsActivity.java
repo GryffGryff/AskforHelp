@@ -1,6 +1,7 @@
 package com.example.askforhelp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ChangeButtonsActivity extends AppCompatActivity {
@@ -84,7 +86,16 @@ public class ChangeButtonsActivity extends AppCompatActivity {
 
     public void checkFirstButton() {
         if(sharedPreferences.getBoolean("buttonsCheck", true)) {
-            Toast.makeText(context, "Here you can preset your messages. Enter whatever you want the preset message to be down below and press save button. You can use the small buttons on the right to delete an already preset message.", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder buttonsDialogBuilder = new AlertDialog.Builder(context);
+            buttonsDialogBuilder.setMessage("Here you can set your messages. Enter the message you want down below and press the save new button. You can use the small buttons on the right to delete an already preset message.");
+            buttonsDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    //user read message
+                }
+            });
+            AlertDialog buttonsDialog = buttonsDialogBuilder.create();
+            buttonsDialog.show();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("buttonsCheck", false);
             editor.apply();

@@ -1,6 +1,7 @@
 package com.example.askforhelp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -42,7 +44,17 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void checkFirstOpen() {
         if(sharedPreferences.getBoolean("settingsCheck", true)) {
-            Toast.makeText(context, "Here you can set up your messages and contacts for the app. You can also turn location on and off. If it's on, a link to your location will be sent with each message.", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder settingsDialogBuilder = new AlertDialog.Builder(context);
+            settingsDialogBuilder.setMessage("Here you can set up your messages and contacts. You can also turn location on and off. If location is on, a link to your location will be sent with each message.");
+            settingsDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    //user read message
+                }
+            });
+            AlertDialog settingsDialog = settingsDialogBuilder.create();
+            settingsDialog.show();
+            //Toast.makeText(context, "Here you can set up your messages and contacts for the app. You can also turn location on and off. If it's on, a link to your location will be sent with each message.", Toast.LENGTH_LONG).show();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("settingsCheck", false);
             editor.apply();

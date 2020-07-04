@@ -2,6 +2,7 @@ package com.example.askforhelp;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -54,7 +56,16 @@ public class ChooseRequestsActivity extends AppCompatActivity {
 
     public void checkFirstTime() {
         if (sharedPreferences.getBoolean("requestsCheck", true)) {
-            Toast.makeText(context, "This is the first run. YAY! Go to settings to set up your app.", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder requestsDialogBuilder = new AlertDialog.Builder(context);
+            requestsDialogBuilder.setMessage("This is the first run. YAY! Go to settings to set up your app");
+            requestsDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    //user read message
+                }
+            });
+            AlertDialog requestsDialog = requestsDialogBuilder.create();
+            requestsDialog.show();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("requestsCheck", false);
             editor.apply();
