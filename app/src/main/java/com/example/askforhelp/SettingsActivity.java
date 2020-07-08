@@ -78,6 +78,11 @@ public class SettingsActivity extends AppCompatActivity {
             //failed to edit shared preferences file
             Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
         }
+        if(sharedPreferences.getBoolean("locationOn", false)) {
+            location.setChecked(true);
+        } else {
+            location.setChecked(false);
+        }
     }
 
     public void setClickListener() {

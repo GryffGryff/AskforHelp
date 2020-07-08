@@ -26,10 +26,7 @@ public class ChooseRequestsActivity extends AppCompatActivity {
 
     Bundle requestsText = new Bundle();
 
-    Integer smsRequestCode = 3;
-    Integer contactsRequestCode = 2;
-    Integer locationRequestCode = 4;
-    Integer internetRequestCode = 5;
+    Integer permissionsRequestCode = 345;
 
     String[] savedButtonNames;
 
@@ -43,7 +40,7 @@ public class ChooseRequestsActivity extends AppCompatActivity {
         setVariables();
         setNewButtonNames();
         addRequestsToBundle();
-        getPermission();
+        getAllPermissions();
         setClickListener();
     }
 
@@ -156,32 +153,13 @@ public class ChooseRequestsActivity extends AppCompatActivity {
         ChooseRequestsActivity.this.startActivity(intent);
     }
 
-    public void getPermission() {
-        if (ContextCompat.checkSelfPermission(ChooseRequestsActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(ChooseRequestsActivity.this, new String[] {Manifest.permission.SEND_SMS}, smsRequestCode);
-            onRequestPermissionsResult(smsRequestCode, new String[] {Manifest.permission.SEND_SMS}, new int[] {PackageManager.PERMISSION_GRANTED});
-        } else {
-            //permission granted
-        }
-        if(ContextCompat.checkSelfPermission(ChooseRequestsActivity.this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(ChooseRequestsActivity.this, new String[] {Manifest.permission.READ_CONTACTS}, contactsRequestCode);
-            onRequestPermissionsResult(contactsRequestCode, new String[] {Manifest.permission.READ_CONTACTS}, new int[] {PackageManager.PERMISSION_GRANTED});
-        } else {
-            //permission granted
-        }
-        if (ContextCompat.checkSelfPermission(ChooseRequestsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(ChooseRequestsActivity.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, locationRequestCode);
-            onRequestPermissionsResult(locationRequestCode, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, new int[] {PackageManager.PERMISSION_GRANTED});
-        } else {
-            //permission granted
-        }
-        if (ContextCompat.checkSelfPermission(ChooseRequestsActivity.this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(ChooseRequestsActivity.this, new String[] {Manifest.permission.INTERNET}, internetRequestCode);
-            onRequestPermissionsResult(internetRequestCode, new String[] {Manifest.permission.INTERNET}, new int[] {PackageManager.PERMISSION_GRANTED});
+    public void getAllPermissions() {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) + ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) + ContextCompat.checkSelfPermission(context, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(ChooseRequestsActivity.this, new String[] {Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}, permissionsRequestCode);
+            onRequestPermissionsResult(permissionsRequestCode, new String[] {Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}, new int[] {PackageManager.PERMISSION_GRANTED, PackageManager.PERMISSION_GRANTED, PackageManager.PERMISSION_GRANTED});
         } else {
             //permission granted
         }
     }
-
 
 }

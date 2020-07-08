@@ -1,8 +1,10 @@
 package com.example.askforhelp;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationProvider;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -40,7 +43,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_contacts);
         setVariables();
-        if(locationOn) {
+        if(locationOn && (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
             checkGPSEnabled();
         }
         setNewGroupNames();
@@ -68,7 +71,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
             Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
         }
         locationOn = sharedPreferences.getBoolean("locationOn", true);
-        if(locationOn) {
+        if(locationOn && (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
             locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
             locationProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
         }
@@ -191,13 +194,13 @@ public class ChooseContactsActivity extends AppCompatActivity {
         String textBody = (whatToText.getString(whatToText.getString("last_button_pressed")));
         String numbers = whoToText.getString(text);
         String mapLink = "";
-        if(locationOn) {
+        if(locationOn && (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
             mapLink = "https://maps.app.goo.gl/?link=https://www.google.com/maps/place/" + getGPS();
         }
         try {
             Intent sendIntent = new Intent(Intent.ACTION_VIEW);
             sendIntent.setType("vnd.android-dir/mms-sms");
-            if(locationOn) {
+            if(locationOn && (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
                 sendIntent.putExtra("sms_body", textBody + " " + mapLink);
             } else {
                 sendIntent.putExtra("sms_body", textBody);

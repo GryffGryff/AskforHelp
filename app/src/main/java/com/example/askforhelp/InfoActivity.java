@@ -26,3 +26,5 @@ public class InfoActivity extends AppCompatActivity {
         link.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }
+
+//add code to attribute creator of delete button: Delete by Landan Lloyd from the Noun Project
