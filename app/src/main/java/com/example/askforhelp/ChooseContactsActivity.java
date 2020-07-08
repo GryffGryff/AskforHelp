@@ -2,6 +2,7 @@ package com.example.askforhelp;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -48,7 +50,11 @@ public class ChooseContactsActivity extends AppCompatActivity {
         }
         setNewGroupNames();
         addNumbersToBundle();
-        setClickListener();
+        if(checkPermissions()) {
+            setClickListener();
+        } else {
+            noPermissionsGiven();
+        }
     }
 
     protected void onResume() {
@@ -77,12 +83,26 @@ public class ChooseContactsActivity extends AppCompatActivity {
         }
     }
 
-    public void checkFirstMessage() {
-        if(sharedPreferences.getBoolean("firstSendCheck", true)) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("firstSendCheck", false);
-            editor.apply();
+    public boolean checkPermissions() {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
         }
+    }
+
+    public void noPermissionsGiven() {
+        AlertDialog.Builder noPermissionsBuilder = new AlertDialog.Builder(context);
+        noPermissionsBuilder.setMessage("This app is useless without access to your contacts. Please give us permission to read your contacts.");
+        noPermissionsBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(ChooseContactsActivity.this, ChooseRequestsActivity.class);
+                ChooseContactsActivity.this.startActivity(intent);
+            }
+        });
+        AlertDialog noPermissionsDialog = noPermissionsBuilder.create();
+        noPermissionsDialog.show();
     }
 
     public void checkGPSEnabled() {

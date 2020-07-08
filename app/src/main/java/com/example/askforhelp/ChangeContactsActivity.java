@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.wafflecopter.multicontactpicker.ContactResult;
@@ -200,20 +199,16 @@ public class ChangeContactsActivity extends AppCompatActivity {
 
     public void noPermissions() {
         AlertDialog.Builder permissionsDialogBuilder = new AlertDialog.Builder(context);
-        permissionsDialogBuilder.setMessage("This app is useless without access to your contacts. If you press yes, this will bring up a dialog asking for access. If you press no, we will take you back to the home screen.");
-        permissionsDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                ActivityCompat.requestPermissions(ChangeContactsActivity.this, new String[] {Manifest.permission.READ_CONTACTS}, contactsPermissionRequestCode);
-            }
-        });
-        permissionsDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        permissionsDialogBuilder.setMessage("This app is useless without access to your contacts. Please give us permission to read your contacts.");
+        permissionsDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent intent = new Intent(ChangeContactsActivity.this, ChooseRequestsActivity.class);
                 ChangeContactsActivity.this.startActivity(intent);
             }
         });
+        AlertDialog permissionsDialog = permissionsDialogBuilder.create();
+        permissionsDialog.show();
     }
 
     public void setClickListener() {

@@ -1,9 +1,11 @@
 package com.example.askforhelp;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -78,10 +81,13 @@ public class SettingsActivity extends AppCompatActivity {
             //failed to edit shared preferences file
             Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
         }
-        if(sharedPreferences.getBoolean("locationOn", false)) {
+        if(sharedPreferences.getBoolean("locationOn", false) && (ContextCompat.checkSelfPermission(context, Manifest.permission.INTERNET) + ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
             location.setChecked(true);
         } else {
             location.setChecked(false);
+            SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
+            sharedPreferencesEditor.putBoolean("locationOn", false);
+            sharedPreferencesEditor.apply();
         }
     }
 
@@ -105,6 +111,18 @@ public class SettingsActivity extends AppCompatActivity {
         location.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) + ContextCompat.checkSelfPermission(context, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+                    location.setChecked(false);
+                    AlertDialog.Builder locationDialogBuilder = new AlertDialog.Builder(context);
+                    locationDialogBuilder.setMessage("FIND GOOD WORDING");
+                    locationDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    AlertDialog locationDialog = locationDialogBuilder.create();
+                    locationDialog.show();  
+                }
                 setLocation();
             }
         });
@@ -127,6 +145,8 @@ public class SettingsActivity extends AppCompatActivity {
                 editor.putBoolean("contactsCheck", true);
                 editor.putBoolean("settingsCheck", true);
                 editor.apply();
+                Intent intent = new Intent(SettingsActivity.this, ChooseRequestsActivity.class);
+                SettingsActivity.this.startActivity(intent);
                 //add toast saying: tutorial has been reset -- go to home page to start
             }
         });
