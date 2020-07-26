@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -216,7 +217,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
             }
         });
     }
-
+/*
     public void textPeople(String text) {
         String textBody = (whatToText.getString(whatToText.getString("last_button_pressed")));
         String numbers = whoToText.getString(text);
@@ -239,6 +240,28 @@ public class ChooseContactsActivity extends AppCompatActivity {
         } catch (Exception e) {
             //sending text failed
             Toast.makeText(context, "Text did not send due to error", Toast.LENGTH_LONG).show();
+        }
+    }
+
+ */
+
+    public void textPeople(String text) {
+        String textBody = (whatToText.getString(whatToText.getString("last_button_pressed")));
+        String numbers = "smsto:" + whoToText.getString(text);
+        String mapLink = "";
+        if(locationOn && (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+            mapLink = "https://maps.app.goo.gl/?link=https://www.google.com/maps/place/" + getGPS();
+        }
+        try {
+            Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, textBody + " " + mapLink);
+            sendIntent.setData(Uri.parse(numbers));
+            String title = "Pick texting app to use";
+            Intent chooser = Intent.createChooser(sendIntent, title);
+            context.startActivity(chooser);
+        } catch (Exception e) {
+            //sending text failed
+            Toast.makeText(context, "Text did not send due to error. Please restart the app and try again.", Toast.LENGTH_LONG).show();
         }
     }
 }

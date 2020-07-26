@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -157,7 +156,10 @@ public class SettingsActivity extends AppCompatActivity {
         defaultAppChooser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 openSMSAppChooser();
+
+
             }
         });
 
@@ -171,16 +173,62 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void openSMSAppChooser() {
-        Toast.makeText(context, "openSMSAppChooser was called", Toast.LENGTH_SHORT).show();
-        Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
-        sendIntent.putExtra("subject", "hello");
-        sendIntent.setData(Uri.parse("smsto:4128777232, 4128777338"));
+        //Toast.makeText(context, "openSMSAppChooser was called", Toast.LENGTH_SHORT).show();
+        /*
+        if (sharedPreferences.getString("app_to_use", "").isEmpty()) {
+            Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "hello");
+            sendIntent.setData(Uri.parse("smsto:4128777232, 4128777338"));
 
-        String title = "Pick texting app to use";
-        Intent chooser = Intent.createChooser(sendIntent, title);
-        Toast.makeText(context, "intent was created", Toast.LENGTH_SHORT).show();
-        context.startActivity(chooser);
-        Toast.makeText(context, "intent was started", Toast.LENGTH_SHORT).show();
+            Intent receiver = new Intent(context, MyReceiver.class);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, receiver, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            String title = "Pick texting app to use";
+            Intent chooser = Intent.createChooser(sendIntent, title, pendingIntent.getIntentSender());
+            context.startActivity(chooser);
+        }
+
+         */
+            //String packageName = sharedPreferences.getString("app_to_use", "");
+            //ComponentName componentName = new ComponentName("com.google.android.app.messaging", "com.google.android.app.messaging.ui.conversation.LaunchConversationActivity");
+        /*
+            Intent sendIntent = new Intent();
+            sendIntent.setComponent(new ComponentName("com.google.android.apps.messaging", "com.google.android.apps.messaging.ui.conversation.LaunchConversationActivity"));
+            sendIntent.setData(Uri.parse("smsto:4128777232, 4128777338"));
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "test");
+            context.startActivity(sendIntent);
+
+         */
+        /*
+        String defaultSmsPackageName = Telephony.Sms.getDefaultSmsPackage(this);
+        Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
+        //sendIntent.setDataAndType(Uri.parse("smsto:4128777232,4128777338"), "text/plain");
+        //sendIntent.setType("text/plain");
+        boolean found = false;
+        List<ResolveInfo> list = getPackageManager().queryIntentActivities(sendIntent, 0);
+        Log.e("listSize", Integer.toString(list.size()));
+        if(!list.isEmpty()) {
+            for(ResolveInfo info:list) {
+                Log.e("packagenames", info.activityInfo.packageName);
+                if(info.activityInfo.packageName.toLowerCase().contains(defaultSmsPackageName) || info.activityInfo.name.toLowerCase().contains(defaultSmsPackageName)) {
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "hello");
+                    sendIntent.setPackage(info.activityInfo.packageName);
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if(found) {
+            Log.e("packageName", sendIntent.getPackage());
+        }
+        sendIntent.setData(Uri.parse("smsto:4128777232, 4128777338"));
+        startActivity(Intent.createChooser(sendIntent, "Select"));
+        //sendIntent.putExtra("address", "4128777232, 41287777338");
+        //sendIntent.putExtra(Intent.EXTRA_PHONE_NUMBER, "4128777232, 4128777338");
+        //startActivity(sendIntent);
+
+         */
     }
 
     public void setLocation() {
