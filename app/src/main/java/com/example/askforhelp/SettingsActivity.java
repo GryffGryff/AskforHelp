@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ public class SettingsActivity extends AppCompatActivity {
     Button editReceivers;
     Button aboutPage;
     Button resetTutorial;
+    Button defaultAppChooser;
 
     Switch location;
 
@@ -69,6 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
         editReceivers = findViewById(R.id.editContacts);
         aboutPage = findViewById(R.id.toAboutPage);
         resetTutorial = findViewById(R.id.resetTutorial);
+        defaultAppChooser = findViewById(R.id.default_app_chooser);
 
         location = findViewById(R.id.locationOnOff);
 
@@ -121,7 +124,7 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                     });
                     AlertDialog locationDialog = locationDialogBuilder.create();
-                    locationDialog.show();  
+                    locationDialog.show();
                 }
                 setLocation();
             }
@@ -151,6 +154,13 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        defaultAppChooser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openSMSAppChooser();
+            }
+        });
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,12 +170,36 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
+    public void openSMSAppChooser() {
+        Toast.makeText(context, "openSMSAppChooser was called", Toast.LENGTH_SHORT).show();
+        Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
+        sendIntent.putExtra("subject", "hello");
+        sendIntent.setData(Uri.parse("smsto:4128777232, 4128777338"));
+
+        String title = "Pick texting app to use";
+        Intent chooser = Intent.createChooser(sendIntent, title);
+        Toast.makeText(context, "intent was created", Toast.LENGTH_SHORT).show();
+        context.startActivity(chooser);
+        Toast.makeText(context, "intent was started", Toast.LENGTH_SHORT).show();
+    }
+
     public void setLocation() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         if(location.isChecked()) {
             editor.putBoolean("locationOn", true);
             editor.apply();
-        } else {
+        } else if(!location.isChecked()){
+            if(ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) + ContextCompat.checkSelfPermission(context, Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED) {
+                AlertDialog.Builder locationOffBuilder = new AlertDialog.Builder(context);
+                locationOffBuilder.setMessage("Turning off location here will stop the app from sending a link to your location but will not rescind the app's permission to access it. If you don't want the app to be able to access your location anymore, go to your phone's settings app and change the permissions there.");
+                locationOffBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                AlertDialog locationOffDialog = locationOffBuilder.create();
+                locationOffDialog.show();
+            }
             editor.putBoolean("locationOn", false);
             editor.apply();
         }

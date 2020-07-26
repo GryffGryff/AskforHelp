@@ -84,7 +84,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
     }
 
     public boolean checkPermissions() {
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) + ContextCompat.checkSelfPermission(context, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
             return true;
         } else {
             return false;
@@ -93,7 +93,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
 
     public void noPermissionsGiven() {
         AlertDialog.Builder noPermissionsBuilder = new AlertDialog.Builder(context);
-        noPermissionsBuilder.setMessage("This app is useless without access to your contacts. Please give us permission to read your contacts.");
+        noPermissionsBuilder.setMessage("This app is useless without permission to access your contacts or send an sms message. Please give us permission to read your contacts and send a text.");
         noPermissionsBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -103,6 +103,13 @@ public class ChooseContactsActivity extends AppCompatActivity {
         });
         AlertDialog noPermissionsDialog = noPermissionsBuilder.create();
         noPermissionsDialog.show();
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChooseContactsActivity.this, ChooseRequestsActivity.class);
+                ChooseContactsActivity.this.startActivity(intent);
+            }
+        });
     }
 
     public void checkGPSEnabled() {
@@ -226,7 +233,9 @@ public class ChooseContactsActivity extends AppCompatActivity {
                 sendIntent.putExtra("sms_body", textBody);
             }
             sendIntent.putExtra("address", numbers);
-            startActivity(sendIntent);
+            Intent chooser = Intent.createChooser(sendIntent, "Choose sms sender");
+            context.startActivity(chooser);
+            //startActivity(sendIntent);
         } catch (Exception e) {
             //sending text failed
             Toast.makeText(context, "Text did not send due to error", Toast.LENGTH_LONG).show();

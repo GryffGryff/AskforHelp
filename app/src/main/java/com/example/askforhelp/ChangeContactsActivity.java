@@ -209,6 +209,13 @@ public class ChangeContactsActivity extends AppCompatActivity {
         });
         AlertDialog permissionsDialog = permissionsDialogBuilder.create();
         permissionsDialog.show();
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChangeContactsActivity.this, SettingsActivity.class);
+                ChangeContactsActivity.this.startActivity(intent);
+            }
+        });
     }
 
     public void setClickListener() {
