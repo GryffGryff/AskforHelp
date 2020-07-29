@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -39,7 +40,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
     Button thirdGroup;
     Button fourthGroup;
 
-    Button deleteFirstGroup;
+    ImageButton deleteFirstGroup;
     Button deleteSecondGroup;
     Button deleteThirdGroup;
     Button deleteFourthGroup;

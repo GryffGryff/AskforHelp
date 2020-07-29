@@ -1,6 +1,7 @@
 package com.example.askforhelp;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -250,7 +251,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
     }
 
  */
-
+/*
     public void textPeople(String text) {
         String textBody = (whatToText.getString(whatToText.getString("last_button_pressed")));
         String numbers = "smsto:" + whoToText.getString(text);
@@ -268,6 +269,38 @@ public class ChooseContactsActivity extends AppCompatActivity {
         } catch (Exception e) {
             //sending text failed
             Toast.makeText(context, "Text did not send due to error. Please restart the app and try again.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+ */
+
+    public void textPeople(String text) {
+        String appPackage = sharedPreferences.getString("app_package", "");
+        String textBody = (whatToText.getString(whatToText.getString("last_button_pressed")));
+        String numbers = "smsto:" + whoToText.getString(text);
+        Uri contacts = Uri.parse(numbers);
+        String mapLink = "";
+        if(locationOn && (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+            mapLink = "https://maps.app.goo.gl/?link=https://www.google.com/maps/place/" + getGPS();
+        }
+        if(appPackage.isEmpty()) {
+            Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, textBody + " " + mapLink);
+            sendIntent.setData(contacts);
+
+            Intent receiver = new Intent(context, MyReceiver.class);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, receiver, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            String title = "Pick texting app to use";
+            Intent chooser = Intent.createChooser(sendIntent, title, pendingIntent.getIntentSender());
+            context.startActivity(chooser);
+        } else {
+            //https://stackoverflow.com/questions/19081654/send-text-to-specific-contact-programmatically-whatsapp
+            Intent sendIntent = new Intent(Intent.ACTION_SENDTO, contacts);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, textBody + " " + mapLink);
+            sendIntent.setPackage(appPackage);
+            startActivity(sendIntent);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.askforhelp;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -25,6 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
     Button aboutPage;
     Button resetTutorial;
     Button defaultAppChooser;
+    Button resetAppChoice;
 
     Switch location;
 
@@ -72,6 +75,7 @@ public class SettingsActivity extends AppCompatActivity {
         aboutPage = findViewById(R.id.toAboutPage);
         resetTutorial = findViewById(R.id.resetTutorial);
         defaultAppChooser = findViewById(R.id.default_app_chooser);
+        resetAppChoice = findViewById(R.id.resetAppChoice);
 
         location = findViewById(R.id.locationOnOff);
 
@@ -117,10 +121,18 @@ public class SettingsActivity extends AppCompatActivity {
                 if(ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) + ContextCompat.checkSelfPermission(context, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
                     location.setChecked(false);
                     AlertDialog.Builder locationDialogBuilder = new AlertDialog.Builder(context);
-                    locationDialogBuilder.setMessage("FIND GOOD WORDING");
-                    locationDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    locationDialogBuilder.setMessage("You cannot turn on location services right now because we do not have access to your phone's location. Would you like to give us access?");
+                    locationDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent locationIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivity(locationIntent);
+                        }
+                    });
+                    locationDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
                         }
                     });
                     AlertDialog locationDialog = locationDialogBuilder.create();
@@ -154,6 +166,25 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        resetAppChoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("app_package", "");
+                editor.apply();
+                AlertDialog.Builder appDialogBuilder = new AlertDialog.Builder(context);
+                appDialogBuilder.setMessage("We cleared your preferences for which app to send the text with. Next time you send a text, please select which app to use when the prompt comes up.");
+                appDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                AlertDialog appDialog = appDialogBuilder.create();
+                appDialog.show();
+            }
+        });
+
         defaultAppChooser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,8 +206,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void openSMSAppChooser() {
         //Toast.makeText(context, "openSMSAppChooser was called", Toast.LENGTH_SHORT).show();
-/*
-        if (sharedPreferences.getString("app", "").isEmpty()) {
+        String appPackage = sharedPreferences.getString("app_package", "");
+        if (appPackage.isEmpty()) {
             Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
             sendIntent.putExtra(Intent.EXTRA_TEXT, "hello");
             sendIntent.setData(Uri.parse("smsto:4128777232, 4128777338"));
@@ -189,19 +220,15 @@ public class SettingsActivity extends AppCompatActivity {
             Intent chooser = Intent.createChooser(sendIntent, title, pendingIntent.getIntentSender());
             context.startActivity(chooser);
         } else {
-            Intent sendIntent = new Intent(Intent.ACTION_SEND);
-            sendIntent.setType("text/plain");
-            sendIntent.setComponent(new ComponentName("com.google.android.apps.messaging", "com.google.android.apps.messaging.ui.conversation.LaunchConversationActivity"));
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "test");
-            context.startActivity(sendIntent);
+            //https://stackoverflow.com/questions/19081654/send-text-to-specific-contact-programmatically-whatsapp
+            Uri uri = Uri.parse("smsto:4128777232, 4128777338");
+            Intent sendIntent = new Intent(Intent.ACTION_SENDTO, uri);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "hello");
+            sendIntent.setPackage(appPackage);
+            startActivity(sendIntent);
         }
 
- */
-        Uri uri = Uri.parse("smsto:4128777232, 4128777338");
-        Intent sendIntent = new Intent(Intent.ACTION_SENDTO, uri);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "hello");
-        sendIntent.setPackage("com.google.android.apps.messaging");
-        startActivity(sendIntent);
+
             /*
             Intent sendIntent = new Intent();
             sendIntent.setComponent(new ComponentName("com.google.android.apps.messaging", "com.google.android.apps.messaging.ui.conversation.LaunchConversationActivity"));

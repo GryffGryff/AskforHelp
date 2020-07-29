@@ -133,6 +133,20 @@
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight=".5">
+                </Space>
+
+                <Button
+                    android:id="@+id/resetAppChoice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:text="reset default app choice"/>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="7">
                 </Space>
 

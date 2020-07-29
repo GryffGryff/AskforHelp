@@ -70,10 +70,10 @@
                     </Space>
 
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/deleteFirstGroup"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
