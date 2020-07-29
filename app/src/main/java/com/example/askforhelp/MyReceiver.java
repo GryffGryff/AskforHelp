@@ -14,7 +14,7 @@ public class MyReceiver extends BroadcastReceiver {
         try {
             SharedPreferences sharedPreferences = context.getSharedPreferences("com.serviceproject.gryffgryff.askforhelp.PREFERENCES", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("app_to_use", selectedAppPackage);
+            editor.putString("app", selectedAppPackage);
             editor.apply();
         } catch (Exception e) {
             //accessing shared preferences file failed

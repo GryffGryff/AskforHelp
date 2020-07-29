@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -174,8 +175,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void openSMSAppChooser() {
         //Toast.makeText(context, "openSMSAppChooser was called", Toast.LENGTH_SHORT).show();
-        /*
-        if (sharedPreferences.getString("app_to_use", "").isEmpty()) {
+/*
+        if (sharedPreferences.getString("app", "").isEmpty()) {
             Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
             sendIntent.putExtra(Intent.EXTRA_TEXT, "hello");
             sendIntent.setData(Uri.parse("smsto:4128777232, 4128777338"));
@@ -187,20 +188,27 @@ public class SettingsActivity extends AppCompatActivity {
             String title = "Pick texting app to use";
             Intent chooser = Intent.createChooser(sendIntent, title, pendingIntent.getIntentSender());
             context.startActivity(chooser);
+        } else {
+            Intent sendIntent = new Intent(Intent.ACTION_SEND);
+            sendIntent.setType("text/plain");
+            sendIntent.setComponent(new ComponentName("com.google.android.apps.messaging", "com.google.android.apps.messaging.ui.conversation.LaunchConversationActivity"));
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "test");
+            context.startActivity(sendIntent);
         }
 
-         */
-            //String packageName = sharedPreferences.getString("app_to_use", "");
-            //ComponentName componentName = new ComponentName("com.google.android.app.messaging", "com.google.android.app.messaging.ui.conversation.LaunchConversationActivity");
-        /*
+ */
+        Uri uri = Uri.parse("smsto:4128777232, 4128777338");
+        Intent sendIntent = new Intent(Intent.ACTION_SENDTO, uri);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "hello");
+        sendIntent.setPackage("com.google.android.apps.messaging");
+        startActivity(sendIntent);
+            /*
             Intent sendIntent = new Intent();
             sendIntent.setComponent(new ComponentName("com.google.android.apps.messaging", "com.google.android.apps.messaging.ui.conversation.LaunchConversationActivity"));
             sendIntent.setData(Uri.parse("smsto:4128777232, 4128777338"));
             sendIntent.putExtra(Intent.EXTRA_TEXT, "test");
-            context.startActivity(sendIntent);
-
-         */
-        /*
+            context.startActivity(sendIntent); */
+/*
         String defaultSmsPackageName = Telephony.Sms.getDefaultSmsPackage(this);
         Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
         //sendIntent.setDataAndType(Uri.parse("smsto:4128777232,4128777338"), "text/plain");
@@ -224,11 +232,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
         sendIntent.setData(Uri.parse("smsto:4128777232, 4128777338"));
         startActivity(Intent.createChooser(sendIntent, "Select"));
-        //sendIntent.putExtra("address", "4128777232, 41287777338");
-        //sendIntent.putExtra(Intent.EXTRA_PHONE_NUMBER, "4128777232, 4128777338");
-        //startActivity(sendIntent);
-
-         */
+ */
     }
 
     public void setLocation() {

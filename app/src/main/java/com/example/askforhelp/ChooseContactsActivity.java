@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -130,11 +131,16 @@ public class ChooseContactsActivity extends AppCompatActivity {
     public String getGPS() {
         try {
             Location gpsCoordinates = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            String location = gpsCoordinates.getLatitude() + "%2C" + gpsCoordinates.getLongitude();
+            String location = "";
+            if(gpsCoordinates == null) {
+                Log.e("getGPS", "gps coordinates was null");
+            } else {
+                location = gpsCoordinates.getLatitude() + "%2C" + gpsCoordinates.getLongitude();
+            }
             return location;
         } catch (SecurityException se) {
             //permission not given
-            return "";
+            return " ";
         }
     }
 
