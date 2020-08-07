@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver android:name=".MyReceiver" android:exported="false"/>
-        <activity android:name=".ApacheLicense"></activity>
+        <activity android:name=".ApacheLicenseActivity"></activity>
         <activity android:name=".InfoActivity" />
         <activity android:name=".ChangeContactsActivity" />
         <activity android:name=".ChangeButtonsActivity" />

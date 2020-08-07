@@ -285,7 +285,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
         }
         if(appPackage.isEmpty()) {
             Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, textBody + " " + mapLink);
+            sendIntent.putExtra("sms_body", textBody + " " + mapLink);
             sendIntent.setData(contacts);
 
             Intent receiver = new Intent(context, MyReceiver.class);
@@ -298,7 +298,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
         } else {
             //https://stackoverflow.com/questions/19081654/send-text-to-specific-contact-programmatically-whatsapp
             Intent sendIntent = new Intent(Intent.ACTION_SENDTO, contacts);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, textBody + " " + mapLink);
+            sendIntent.putExtra("sms_body", textBody + " " + mapLink);
             sendIntent.setPackage(appPackage);
             startActivity(sendIntent);
         }

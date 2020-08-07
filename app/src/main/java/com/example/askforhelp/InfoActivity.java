@@ -32,6 +32,13 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     public void setOnClickListeners() {
+        goToLicense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToLicense = new Intent(InfoActivity.this, ApacheLicenseActivity.class);
+                InfoActivity.this.startActivity(goToLicense);
+            }
+        });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
