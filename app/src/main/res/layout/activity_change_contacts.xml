@@ -70,14 +70,11 @@
                     </Space>
 
 
-                    <ImageButton
+                    <Button
                         android:id="@+id/deleteFirstGroup"
                         android:layout_width="90dp"
                         android:layout_height="60dp"
-                        android:background="@drawable/delete_button_noun_project"
-                        android:adjustViewBounds="true"
-                        android:padding="20dp"
-                        android:scaleType="fitXY"
+                        android:background="@drawable/trashcan_image"
                         />
 
                 </LinearLayout>
@@ -112,8 +109,9 @@
 
                     <Button
                         android:id="@+id/deleteSecondGroup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="90dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/trashcan_image"
                         android:textSize="25sp"/>
 
                 </LinearLayout>
@@ -147,8 +145,9 @@
 
                     <Button
                         android:id="@+id/deleteThirdGroup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="90dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/trashcan_image"
                         android:textSize="25sp"/>
 
                 </LinearLayout>
@@ -183,8 +182,9 @@
 
                     <Button
                         android:id="@+id/deleteFourthGroup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="90dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/trashcan_image"
                         android:textSize="25sp" />
 
                 </LinearLayout>

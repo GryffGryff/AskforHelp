@@ -40,7 +40,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
     Button thirdGroup;
     Button fourthGroup;
 
-    ImageButton deleteFirstGroup;
+    Button deleteFirstGroup;
     Button deleteSecondGroup;
     Button deleteThirdGroup;
     Button deleteFourthGroup;
