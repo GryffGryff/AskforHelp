@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -30,6 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
     Button resetAppChoice;
 
     Switch location;
+    Switch darkMode;
 
     SharedPreferences sharedPreferences;
     Context context;
@@ -78,6 +80,7 @@ public class SettingsActivity extends AppCompatActivity {
         resetAppChoice = findViewById(R.id.resetAppChoice);
 
         location = findViewById(R.id.locationOnOff);
+        darkMode = findViewById(R.id.darkOnOff);
 
         backButton = findViewById(R.id.backButtonTwo);
 
@@ -139,6 +142,17 @@ public class SettingsActivity extends AppCompatActivity {
                     locationDialog.show();
                 }
                 setLocation();
+            }
+        });
+
+        darkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(location.isChecked()) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
             }
         });
 
