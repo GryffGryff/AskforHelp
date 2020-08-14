@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:background="#121212"
     tools:context=".InfoActivity">
 
     <Space
@@ -37,8 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
-                android:text="   This app uses code from an outside library te select multiple contacts in the settings page. The library we used, MultiContactPicker, is licensed under the Apache License 2.0. Here is the link to the github repository of the code we used:"
-                android:textColor="#000" />
+                android:text="   This app uses code from an outside library to select multiple contacts in the settings page. The library we used, MultiContactPicker, is licensed under the Apache License 2.0. Here is the link to the github repository of the code we used:"
+                android:textColor="#ebebeb" />
 
             <TextView
                 android:id="@+id/link"
@@ -60,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
-                android:textColor="#000"
+                android:textColor="#ebebeb"
                 android:text="Apache License" />
 
             <Space
