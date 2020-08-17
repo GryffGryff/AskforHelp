@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 
 import java.util.HashSet;
@@ -48,6 +49,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_contacts);
         setVariables();
+        darkMode();
         if(locationOn && (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
             checkGPSEnabled();
         }
@@ -86,8 +88,14 @@ public class ChooseContactsActivity extends AppCompatActivity {
         }
     }
 
+    public void darkMode() {
+        if(sharedPreferences.getBoolean("dark_mode_on", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+    }
+
     public boolean checkPermissions() {
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) + ContextCompat.checkSelfPermission(context, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             return true;
         } else {
             return false;
@@ -96,7 +104,7 @@ public class ChooseContactsActivity extends AppCompatActivity {
 
     public void noPermissionsGiven() {
         AlertDialog.Builder noPermissionsBuilder = new AlertDialog.Builder(context);
-        noPermissionsBuilder.setMessage("This app is useless without permission to access your contacts or send an sms message. Please give us permission to read your contacts and send a text.");
+        noPermissionsBuilder.setMessage("This app is useless without permission to access your contacts. Please give us permission to read your contacts.");
         noPermissionsBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

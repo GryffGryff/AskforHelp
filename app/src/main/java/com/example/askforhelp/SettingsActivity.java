@@ -31,7 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
     Button resetAppChoice;
 
     Switch location;
-    Switch darkMode;
+    Switch darkOnOff;
 
     SharedPreferences sharedPreferences;
     Context context;
@@ -43,6 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         setVariables();
+        darkMode();
         checkFirstOpen();
         setClickListener();
     }
@@ -80,7 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
         resetAppChoice = findViewById(R.id.resetAppChoice);
 
         location = findViewById(R.id.locationOnOff);
-        darkMode = findViewById(R.id.darkOnOff);
+        darkOnOff = findViewById(R.id.darkOnOff);
 
         backButton = findViewById(R.id.backButtonTwo);
 
@@ -98,6 +99,13 @@ public class SettingsActivity extends AppCompatActivity {
             SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
             sharedPreferencesEditor.putBoolean("locationOn", false);
             sharedPreferencesEditor.apply();
+        }
+    }
+
+    public void darkMode() {
+        if(sharedPreferences.getBoolean("dark_mode_on", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            darkOnOff.setChecked(true);
         }
     }
 
@@ -145,14 +153,10 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        darkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        darkOnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(location.isChecked()) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }
+                darkModeSettings();
             }
         });
 
@@ -216,6 +220,19 @@ public class SettingsActivity extends AppCompatActivity {
                 SettingsActivity.this.startActivity(intent);
             }
         });
+    }
+
+    public void darkModeSettings() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if(darkOnOff.isChecked()) {
+            editor.putBoolean("dark_mode_on", true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else if(!darkOnOff.isChecked()){
+            editor.putBoolean("dark_mode_on", false);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        editor.apply();
+        recreate();
     }
 
     public void openSMSAppChooser() {

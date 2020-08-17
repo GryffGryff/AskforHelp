@@ -10,11 +10,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 
 import com.wafflecopter.multicontactpicker.ContactResult;
@@ -79,8 +79,8 @@ public class ChangeContactsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_contacts);
-
         setVariables();
+        darkMode();
         addGroupsToArray();
         setGroupNamesAndIds();
         if(checkPermissions()) {
@@ -118,6 +118,12 @@ public class ChangeContactsActivity extends AppCompatActivity {
         } catch (Exception e) {
             //failed to edit shared preferences file
             Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void darkMode() {
+        if(sharedPreferences.getBoolean("dark_mode_on", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
     }
 
