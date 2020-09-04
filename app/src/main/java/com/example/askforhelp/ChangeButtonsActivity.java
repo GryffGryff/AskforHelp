@@ -1,11 +1,16 @@
 package com.example.askforhelp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -73,6 +78,7 @@ public class ChangeButtonsActivity extends AppCompatActivity {
 
         saveNewButton = findViewById(R.id.saveNewButton);
         setNewButton = findViewById(R.id.setNewButton);
+        setNewButton.setRawInputType(InputType.TYPE_CLASS_TEXT);
 
         settingsButton = findViewById(R.id.settingsButtonRequests);
 
@@ -210,5 +216,10 @@ public class ChangeButtonsActivity extends AppCompatActivity {
             //failed to edit shared preferences file
             Toast.makeText(context, "There was an error. Please close the app and restart it.", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -108,6 +109,7 @@ public class ChangeContactsActivity extends AppCompatActivity {
 
         saveNewGroup = findViewById(R.id.saveNewGroup);
         setNewGroup = findViewById(R.id.setNewGroup);
+        setNewGroup.setRawInputType(InputType.TYPE_CLASS_TEXT);
 
         settings = findViewById(R.id.settingsButtonContacts);
 
