@@ -213,6 +213,8 @@
 
                 <EditText
                     android:id="@+id/setNewButton"
+                    android:imeOptions="actionDone"
+                    android:inputType="textMultiLine"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
