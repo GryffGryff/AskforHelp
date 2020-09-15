@@ -143,21 +143,6 @@
                 </Space>
 
                 <Button
-                    android:id="@+id/default_app_chooser"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="25sp"
-                    android:textColor="#ebebeb"
-                    android:text="default app testing"/>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".5">
-                </Space>
-
-                <Button
                     android:id="@+id/resetAppChoice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

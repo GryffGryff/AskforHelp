@@ -54,6 +54,21 @@ public class ChooseRequestsActivity extends AppCompatActivity {
     }
 
     public void checkFirstTime() {
+        if (sharedPreferences.getBoolean("firstTime", true)) {
+            AlertDialog.Builder termsDialogBuilder = new AlertDialog.Builder(context);
+            termsDialogBuilder.setMessage("This app is just a streamlined messaging app. It is not meant to be used instead of calling 911.");
+            termsDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            AlertDialog termsDialog = termsDialogBuilder.create();
+            termsDialog.show();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("firstTime", false);
+            editor.apply();
+        }
         if (sharedPreferences.getBoolean("requestsCheck", true)) {
             AlertDialog.Builder requestsDialogBuilder = new AlertDialog.Builder(context);
             requestsDialogBuilder.setMessage("This is the first run. YAY! Go to settings to set up your app");

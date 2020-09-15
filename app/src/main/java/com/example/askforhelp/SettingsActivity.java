@@ -1,13 +1,11 @@
 package com.example.askforhelp;
 
 import android.Manifest;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -27,7 +25,6 @@ public class SettingsActivity extends AppCompatActivity {
     Button editReceivers;
     Button aboutPage;
     Button resetTutorial;
-    Button defaultAppChooser;
     Button resetAppChoice;
 
     Switch location;
@@ -77,7 +74,6 @@ public class SettingsActivity extends AppCompatActivity {
         editReceivers = findViewById(R.id.editContacts);
         aboutPage = findViewById(R.id.toAboutPage);
         resetTutorial = findViewById(R.id.resetTutorial);
-        defaultAppChooser = findViewById(R.id.default_app_chooser);
         resetAppChoice = findViewById(R.id.resetAppChoice);
 
         location = findViewById(R.id.locationOnOff);
@@ -203,16 +199,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        defaultAppChooser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                openSMSAppChooser();
-
-
-            }
-        });
-
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -233,64 +219,6 @@ public class SettingsActivity extends AppCompatActivity {
         }
         editor.apply();
         recreate();
-    }
-
-    public void openSMSAppChooser() {
-        //Toast.makeText(context, "openSMSAppChooser was called", Toast.LENGTH_SHORT).show();
-        String appPackage = sharedPreferences.getString("app_package", "");
-        if (appPackage.isEmpty()) {
-            Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "hello");
-            sendIntent.setData(Uri.parse("smsto:4128777232, 4128777338"));
-
-            Intent receiver = new Intent(context, MyReceiver.class);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, receiver, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            String title = "Pick texting app to use";
-            Intent chooser = Intent.createChooser(sendIntent, title, pendingIntent.getIntentSender());
-            context.startActivity(chooser);
-        } else {
-            //https://stackoverflow.com/questions/19081654/send-text-to-specific-contact-programmatically-whatsapp
-            Uri uri = Uri.parse("smsto:4128777232, 4128777338");
-            Intent sendIntent = new Intent(Intent.ACTION_SENDTO, uri);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "hello");
-            sendIntent.setPackage(appPackage);
-            startActivity(sendIntent);
-        }
-
-
-            /*
-            Intent sendIntent = new Intent();
-            sendIntent.setComponent(new ComponentName("com.google.android.apps.messaging", "com.google.android.apps.messaging.ui.conversation.LaunchConversationActivity"));
-            sendIntent.setData(Uri.parse("smsto:4128777232, 4128777338"));
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "test");
-            context.startActivity(sendIntent); */
-/*
-        String defaultSmsPackageName = Telephony.Sms.getDefaultSmsPackage(this);
-        Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
-        //sendIntent.setDataAndType(Uri.parse("smsto:4128777232,4128777338"), "text/plain");
-        //sendIntent.setType("text/plain");
-        boolean found = false;
-        List<ResolveInfo> list = getPackageManager().queryIntentActivities(sendIntent, 0);
-        Log.e("listSize", Integer.toString(list.size()));
-        if(!list.isEmpty()) {
-            for(ResolveInfo info:list) {
-                Log.e("packagenames", info.activityInfo.packageName);
-                if(info.activityInfo.packageName.toLowerCase().contains(defaultSmsPackageName) || info.activityInfo.name.toLowerCase().contains(defaultSmsPackageName)) {
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "hello");
-                    sendIntent.setPackage(info.activityInfo.packageName);
-                    found = true;
-                    break;
-                }
-            }
-        }
-        if(found) {
-            Log.e("packageName", sendIntent.getPackage());
-        }
-        sendIntent.setData(Uri.parse("smsto:4128777232, 4128777338"));
-        startActivity(Intent.createChooser(sendIntent, "Select"));
- */
     }
 
     public void setLocation() {

@@ -34,10 +34,24 @@
             android:layout_weight="16">
 
             <TextView
+                android:id="@+id/terms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="This app is a streamlined messaging app. It is not meant to be used instead of calling 911."
+                android:textSize="25sp"
+                android:textColor="#ebebeb"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5" >
+            </Space>
+
+            <TextView
                 android:id="@+id/aboutLicense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:text="   This app uses code from an outside library to select multiple contacts in the settings page. The library we used, MultiContactPicker, is licensed under the Apache License 2.0. Here is the link to the github repository of the code we used:"
                 android:textColor="#ebebeb" />
 
@@ -45,10 +59,17 @@
                 android:id="@+id/link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="italic"
                 android:linksClickable="true"
                 android:text="@string/link_to_github"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:text="The delete buttons in the contacts and requests editing pages are the Multimedia button by zaenul yahya from the Noun Project"
+                android:textColor="#ebebeb"/>
 
             <Space
                 android:layout_width="match_parent"
