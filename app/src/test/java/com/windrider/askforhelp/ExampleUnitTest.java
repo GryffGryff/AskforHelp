@@ -1,4 +1,4 @@
-package com.example.askforhelp;
+package com.windrider.askforhelp;
 
 import org.junit.Test;
 

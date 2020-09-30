@@ -1,4 +1,4 @@
-package com.example.askforhelp;
+package com.windrider.askforhelp;
 
 import android.Manifest;
 import android.app.PendingIntent;

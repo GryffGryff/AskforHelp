@@ -1,4 +1,4 @@
-package com.example.askforhelp;
+package com.windrider.askforhelp;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.askforhelp", appContext.getPackageName());
+        assertEquals("com.windrider.askforhelp", appContext.getPackageName());
     }
 }
